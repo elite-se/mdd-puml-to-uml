@@ -2,8 +2,70 @@ grammar elite.mdd.plantuml.PlantUML with org.eclipse.xtext.common.Terminals
 
 generate plantUML "http://www.mdd.elite/plantuml/PlantUML"
 
-Model:
-	greetings+=Greeting*;
+Diagram:
+	'@startuml' (elements+=SequenceElement)+ '@enduml';
 	
-Greeting:
-	'Hello' name=ID '!';
+SequenceElement:
+	ParticipantDefinition
+	| MessageDefinition;
+	
+// Participants
+	
+ParticipantDefinition:
+	shape=ParticipantShape participant=Participant;
+	
+Participant:
+	'"'name=ID'"';
+	
+enum ParticipantShape:
+	ACTOR='actor' 
+	| BOUNDARY='boundary' 
+	| CONTROL='control' 
+	| COLLECTIONS='collections' 
+	| ENTITY='entity'
+	| DATABASE='database'
+	| PARTICIPANT='participant';
+	
+// Messages
+	
+MessageDefinition:
+	RequestMessageDefinition
+	| ReplyMessageDefinition;
+	
+RequestMessageDefinition:
+	('"'sender=[Participant]'"' arrow=RequestArrow '"'receiver=[Participant]'"')
+	(':' message=RequestMessage);
+	
+ReplyMessageDefinition:
+	('"'sender=[Participant]'"' arrow=ReplyArrow '"'receiver=[Participant]'"')
+	(':' message=ReplyMessage);
+	
+// TODO: Handle \"	
+RequestMessage:
+	name=ID ('('(arguments+=RequestMessageArgument (',' arguments+=RequestMessageArgument)*)?')')?;	
+
+RequestMessageArgument:
+	INT
+	| STRING;
+	
+ReplyMessage:
+	STRING;
+	
+enum RequestArrow:
+	RIGHT_SYNC='->'
+	| RIGHT_ASYNC='->>'
+	| LEFT_SYNC='<-'
+	| LEFT_ASYNC='<<-';
+	
+enum ReplyArrow:
+	RIGHT_REPLY='-->>'
+	| LEFT_REPLY='<<--';
+
+
+// TODO: Handle Strings correctly
+@Override 
+terminal STRING:
+			"'" ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|"'") )* "'"
+		;
+	
+	

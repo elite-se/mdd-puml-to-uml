@@ -1,0 +1,9 @@
+grammar elite.mdd.plantuml.PlantUML with org.eclipse.xtext.common.Terminals
+
+generate plantUML "http://www.mdd.elite/plantuml/PlantUML"
+
+Model:
+	greetings+=Greeting*;
+	
+Greeting:
+	'Hello' name=ID '!';

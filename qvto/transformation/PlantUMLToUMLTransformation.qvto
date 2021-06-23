@@ -27,14 +27,18 @@ ReplyMessageDefinition::toUMLMessage {
 	
 }
 
-/*mapping MessageDefinition::toUMLMessage(): UML::Message {
-	name := self.message;
-}*/
-
-mapping RequestMessageDefinition::toUMLMessage(): UML::Message {
-	messageSort := MessageSort::synchCall;
+mapping MessageDefinition::senderAndReceiver(): UML::Message {
+	log('Message from ' + self.sender.name + ' to ' + self.receiver.name);
 }
 
-mapping ReplyMessageDefinition::toUMLMessage(): UML::Message {
-	messageSort := MessageSort::asynchSignal;
+mapping RequestMessageDefinition::toUMLMessage(): UML::Message inherits
+MessageDefinition::senderAndReceiver {
+	messageSort := MessageSort::synchCall;
+	log(messageSort.toString());
+}
+
+mapping ReplyMessageDefinition::toUMLMessage(): UML::Message inherits
+MessageDefinition::senderAndReceiver {
+	messageSort := MessageSort::reply;
+	log(messageSort.toString());
 }

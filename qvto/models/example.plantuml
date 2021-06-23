@@ -2,5 +2,5 @@
 participant "Bob"
 participant "Alice"
 "Bob" -> "Alice" : test
-"Bob" <<-- "Alice" : 'blub'
+"Alice" -->> "Bob" : 'blub'
 @enduml

@@ -2,7 +2,7 @@
 The following examples shall be transformed to UML.
 
 ## Example 1
-Plantuml:
+#### Plantuml:
 ```
 @startuml
 Actor "Bob : User" as Bob
@@ -14,8 +14,19 @@ node0 <-- ": WeatherAPI": "sunny"
 Bob <-- node0: "sunny"
 @enduml
 ```
+possibly without the Participant declaration of WeatherAPI:
+```
+@startuml
+Actor "Bob : User" as Bob
+Participant "node0 : WWebserver" as node0
+Bob -> node0: getWeather(location="Augsburg")
+node0 -> ": WeatherAPI": getWeatherData(long=48.360455, lat=10.901283)
+node0 <-- ": WeatherAPI": "sunny"
+Bob <-- node0: "sunny"
+@enduml
+```
 
-Plantuml, normalized:
+#### Plantuml, normalized:
 ```
 @startuml
 Actor "Bob : User" as Bob
@@ -29,7 +40,7 @@ Bob <-- node0: "sunny"
 ```
 
 ## Example 2
-Plantuml:
+#### Plantuml:
 ```
 @startuml
 Participant "key1 : Key"
@@ -42,7 +53,7 @@ lock --> lock: true
 lock ->> lock: open()
 @enduml
 ```
-Plantuml, normalized:
+#### Plantuml, normalized:
 ```
 @startuml
 Participant "key1 : Key" as key1

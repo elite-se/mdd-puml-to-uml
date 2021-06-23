@@ -1,1 +1,12 @@
-/bin/
+# Xtext / Xtend
+generated/
+src-gen/
+xtend-gen/
+xtext-gen/
+
+# Eclipse
+# .classpath
+# .project
+# .settings/
+# .metadata/
+bin/

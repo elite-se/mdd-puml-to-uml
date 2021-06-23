@@ -1,0 +1,40 @@
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+modeltype PlantUML uses "http://www.mdd.elite/plantuml/PlantUML";
+
+transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
+
+main() {
+	object UML::Model {
+		name := 'Test';
+		packagedElement := source.rootObjects()[Diagram] -> toInteraction();
+	};
+}
+
+mapping Diagram::toInteraction(): Interaction {
+	lifeline := self.elements[ParticipantDefinition] -> map toLifeline();
+	//message := self.elements[MessageDefinition] -> map toUMLMessage();
+	message := self.elements[RequestMessageDefinition] -> map toUMLMessage();
+	message += self.elements[ReplyMessageDefinition] -> map toUMLMessage();
+}
+
+mapping ParticipantDefinition::toLifeline(): Lifeline {
+	name := self.participant.name;
+}
+
+mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 
+RequestMessageDefinition::toUMLMessage,
+ReplyMessageDefinition::toUMLMessage {
+	
+}
+
+/*mapping MessageDefinition::toUMLMessage(): UML::Message {
+	name := self.message;
+}*/
+
+mapping RequestMessageDefinition::toUMLMessage(): UML::Message {
+	messageSort := MessageSort::synchCall;
+}
+
+mapping ReplyMessageDefinition::toUMLMessage(): UML::Message {
+	messageSort := MessageSort::asynchSignal;
+}

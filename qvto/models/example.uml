@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_2tNFINQWEeuyALwFXMTDUQ" name="Test">
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_2tNFIdQWEeuyALwFXMTDUQ">
+    <lifeline xmi:id="_2tNFItQWEeuyALwFXMTDUQ" name="Alice"/>
+    <lifeline xmi:id="_2tNFI9QWEeuyALwFXMTDUQ" name="Bob"/>
+    <message xmi:id="_2tNFJNQWEeuyALwFXMTDUQ"/>
+    <message xmi:id="_2tNFJdQWEeuyALwFXMTDUQ" messageSort="asynchSignal"/>
+  </packagedElement>
+</uml:Model>

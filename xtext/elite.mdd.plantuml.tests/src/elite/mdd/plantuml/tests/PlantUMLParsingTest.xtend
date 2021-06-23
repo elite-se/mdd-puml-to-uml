@@ -11,6 +11,9 @@ import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+import org.junit.Assert
+import elite.mdd.plantuml.plantUML.ParticipantDefinition
+import elite.mdd.plantuml.plantUML.RequestMessageDefinition
 
 @ExtendWith(InjectionExtension)
 @InjectWith(PlantUMLInjectorProvider)
@@ -19,12 +22,271 @@ class PlantUMLParsingTest {
 	ParseHelper<Diagram> parseHelper
 	
 	@Test
-	def void loadModel() {
+	def void missingTildeParticipant() {
 		val result = parseHelper.parse('''
-			Hello Xtext!
+			@startuml
+			actor "testParticipant
+			@enduml
 		''')
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.size() == 1, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void noContent() {
+		val result = parseHelper.parse('''
+			@startuml
+			@enduml
+		''')
+		
+		Assertions.assertNull(result)
+	}
+	
+	@Test
+	def void oneParticipant() {
+		val result = parseHelper.parse('''
+			@startuml
+			actor "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
 		Assertions.assertNotNull(result)
 		val errors = result.eResource.errors
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
 	}
+	
+	def void twoParticipant() {
+		val result = parseHelper.parse('''
+			@startuml
+			actor "testParticipant1"
+			actor "testParticipant2"
+			@enduml
+		''')
+		
+		Assert.assertEquals(2, result.elements.size())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void actorParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			actor "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("ACTOR", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void boundaryParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			boundary "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("BOUNDARY", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void controlParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			control "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("CONTROL", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void collectionsParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			collections "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("COLLECTIONS", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void entityParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			entity "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("ENTITY", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void databaseParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			database "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("DATABASE", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void participantParticipantTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			participant "testParticipant"
+			@enduml
+		''')
+		
+		Assert.assertEquals(1, result.elements.size())
+		
+		val property = result.elements.head as ParticipantDefinition
+		Assert.assertEquals("PARTICIPANT", property.shape.getName())
+		Assert.assertEquals("testParticipant", property.participant.getName())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void singleRequestMessageNoArgumentTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			participant "p1"
+			participant "p2"
+			"p1" -> "p2" : m()
+			@enduml
+		''')
+		
+		Assert.assertEquals(3, result.elements.size())
+		
+		val messageDefinition = result.elements.get(2) as RequestMessageDefinition
+		Assert.assertEquals("p1", messageDefinition.sender.getName())
+		Assert.assertEquals("p2", messageDefinition.receiver.getName())
+		Assert.assertEquals("RIGHT_SYNC", messageDefinition.arrow.getName())
+		Assert.assertEquals("m", messageDefinition.message.getName())
+		Assert.assertEquals(0, messageDefinition.message.arguments.size())
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	
+	@Test
+	def void singleRequestMessageOneArgumentTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			participant "p1"
+			participant "p2"
+			"p1" -> "p2" : m(0)
+			@enduml
+		''')
+		
+		Assert.assertEquals(3, result.elements.size())
+		
+		val messageDefinition = result.elements.get(2) as RequestMessageDefinition
+		Assert.assertEquals("p1", messageDefinition.sender.getName())
+		Assert.assertEquals("p2", messageDefinition.receiver.getName())
+		Assert.assertEquals("RIGHT_SYNC", messageDefinition.arrow.getName())
+		Assert.assertEquals("m", messageDefinition.message.getName())
+		Assert.assertEquals(1, messageDefinition.message.arguments.size())
+		Assert.assertEquals("0", messageDefinition.message.arguments.get(0))
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
+	@Test
+	def void singleRequestMessageManyArgumentTest() {
+		val result = parseHelper.parse('''
+			@startuml
+			participant "p1"
+			participant "p2"
+			"p1" -> "p2" : m('t0', 1, 't2', 3, 't4', 5, 't6', 7)
+			@enduml
+		''')
+		
+		Assert.assertEquals(3, result.elements.size())
+		
+		val messageDefinition = result.elements.get(2) as RequestMessageDefinition
+		Assert.assertEquals("p1", messageDefinition.sender.getName())
+		Assert.assertEquals("p2", messageDefinition.receiver.getName())
+		Assert.assertEquals("RIGHT_SYNC", messageDefinition.arrow.getName())
+		Assert.assertEquals("m", messageDefinition.message.getName())
+		Assert.assertEquals(8, messageDefinition.message.arguments.size())
+		for (i : 0..< messageDefinition.message.arguments.size()) {
+			if (i %2 == 0) {
+				Assert.assertEquals("'t" + i + "'", messageDefinition.message.arguments.get(i))	
+			} else {
+				Assert.assertEquals("" + i, messageDefinition.message.arguments.get(i))
+			}
+				
+		}
+		
+		
+		Assertions.assertNotNull(result)
+		val errors = result.eResource.errors
+		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+	}
+	
 }

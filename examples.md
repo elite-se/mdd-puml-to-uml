@@ -10,8 +10,8 @@ Participant "node0 : WWebserver" as node0
 Participant ": WeatherAPI"
 Bob -> node0: getWeather(location="Augsburg")
 node0 -> ": WeatherAPI": getWeatherData(long=48.360455, lat=10.901283)
-node0 <-- ": WeatherAPI": "sunny"
-Bob <-- node0: "sunny"
+node0 <<-- ": WeatherAPI": "sunny"
+Bob <<-- node0: "sunny"
 @enduml
 ```
 possibly without the Participant declaration of WeatherAPI:
@@ -21,8 +21,8 @@ Actor "Bob : User" as Bob
 Participant "node0 : WWebserver" as node0
 Bob -> node0: getWeather(location="Augsburg")
 node0 -> ": WeatherAPI": getWeatherData(long=48.360455, lat=10.901283)
-node0 <-- ": WeatherAPI": "sunny"
-Bob <-- node0: "sunny"
+node0 <<-- ": WeatherAPI": "sunny"
+Bob <<-- node0: "sunny"
 @enduml
 ```
 
@@ -34,8 +34,8 @@ Participant "node0 : WWebserver" as node0
 Participant ": WeatherAPI" as anonymusWeatherAPI1
 Bob -> node0: getWeather(location="Augsburg")
 node0 -> anonymusWeatherAPI1: getWeatherData(long=48.360455, lat=10.901283)
-node0 <-- anonymusWeatherAPI1: "sunny"
-Bob <-- node0: "sunny"
+node0 <<-- anonymusWeatherAPI1: "sunny"
+Bob <<-- node0: "sunny"
 @enduml
 ```
 

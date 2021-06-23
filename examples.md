@@ -47,9 +47,9 @@ Participant "key1 : Key"
 Participant "lock : Lock" as lock
 "key1 : Key" ->> lock: unlock()
 lock -> "key1 : Key": getKey()
-lock <-- "key1 : Key": "bew8n4ci2l4nvuy8"
+lock <<-- "key1 : Key": "bew8n4ci2l4nvuy8"
 lock -> lock: validateKey("bew8n4ci2l4nvuy8")
-lock --> lock: true
+lock -->> lock: true
 lock ->> lock: open()
 @enduml
 ```
@@ -60,9 +60,9 @@ Participant "key1 : Key" as key1
 Participant "lock : Lock" as lock
 key1 ->> lock: unlock()
 lock -> key1 : getKey()
-lock <-- key1 : "bew8n4ci2l4nvuy8"
+lock <<-- key1 : "bew8n4ci2l4nvuy8"
 lock -> lock: validateKey("bew8n4ci2l4nvuy8")
-lock --> lock: true
+lock -->> lock: true
 lock ->> lock: open()
 @enduml
 ```

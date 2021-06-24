@@ -6,15 +6,15 @@ transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML)
 main() {
 	object UML::Model {
 		name := 'Test';
-		packagedElement := source.rootObjects()[Diagram] -> toInteraction();
+		packagedElement := source.rootObjects()[Diagram] -> map toInteraction();
 	};
 }
 
 mapping Diagram::toInteraction(): Interaction {
 	lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline();
 	//message := self.elements[MessageDefinition] -> map toUMLMessage();
-	message := self.elements[RequestMessageDefinition] -> map toUMLMessage();
-	message += self.elements[ReplyMessageDefinition] -> map toUMLMessage();
+	message += self.elements[MessageDefinition] -> map toUMLMessage();
+	//message += self.elements[ReplyMessageDefinition] -> map toUMLMessage();
 }
 
 mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
@@ -24,6 +24,7 @@ mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccuren
 
 mapping Participant::toLifeline(): Lifeline {
 	name := self.name;
+	log('Participant: ' + self.toString());
 }
 
 mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 
@@ -36,8 +37,9 @@ mapping MessageDefinition::senderAndReceiver(): UML::Message {
 	var parentInteraction := self.container().oclAsType(PlantUML::Diagram).resolveone(UML::Interaction);
 	var sendOccurence := object MessageOccurrenceSpecification { 
 		message := result;
+		log(self.sender.toString());
 		// log(self.sender.toLifeline().toString());
-		covered := self.sender.resolve(UML::Lifeline);
+		covered := self.sender.resolveone(UML::Lifeline);
 		interaction := parentInteraction;
 	};
 	var receiveOccurence := object MessageOccurrenceSpecification {

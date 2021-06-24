@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_h819UNRSEeuBEpc3xrb9Lg" name="Test">
-  <packagedElement xmi:type="uml:Interaction" xmi:id="_h819UdRSEeuBEpc3xrb9Lg">
-    <lifeline xmi:id="_h819UtRSEeuBEpc3xrb9Lg" name="Alice"/>
-    <lifeline xmi:id="_h819U9RSEeuBEpc3xrb9Lg" name="Bob"/>
-    <message xmi:id="_h819VNRSEeuBEpc3xrb9Lg"/>
-    <message xmi:id="_h819VdRSEeuBEpc3xrb9Lg" messageSort="reply"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_6CabcNTcEeuro4h0vUA0TQ" name="Test">
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_6CabcdTcEeuro4h0vUA0TQ">
+    <lifeline xmi:id="_6CabctTcEeuro4h0vUA0TQ" name="Alice"/>
+    <lifeline xmi:id="_6Cabc9TcEeuro4h0vUA0TQ" name="Bob"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_6CabdNTcEeuro4h0vUA0TQ" message="_6CabeNTcEeuro4h0vUA0TQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_6CabddTcEeuro4h0vUA0TQ" message="_6CabeNTcEeuro4h0vUA0TQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_6CabdtTcEeuro4h0vUA0TQ" message="_6CabedTcEeuro4h0vUA0TQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_6Cabd9TcEeuro4h0vUA0TQ" message="_6CabedTcEeuro4h0vUA0TQ"/>
+    <message xmi:id="_6CabeNTcEeuro4h0vUA0TQ" receiveEvent="_6CabddTcEeuro4h0vUA0TQ" sendEvent="_6CabdNTcEeuro4h0vUA0TQ"/>
+    <message xmi:id="_6CabedTcEeuro4h0vUA0TQ" messageSort="reply" receiveEvent="_6Cabd9TcEeuro4h0vUA0TQ" sendEvent="_6CabdtTcEeuro4h0vUA0TQ"/>
   </packagedElement>
 </uml:Model>

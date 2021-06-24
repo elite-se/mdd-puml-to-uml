@@ -11,14 +11,19 @@ main() {
 }
 
 mapping Diagram::toInteraction(): Interaction {
-	lifeline := self.elements[ParticipantDefinition] -> map toLifeline();
+	lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline();
 	//message := self.elements[MessageDefinition] -> map toUMLMessage();
 	message := self.elements[RequestMessageDefinition] -> map toUMLMessage();
 	message += self.elements[ReplyMessageDefinition] -> map toUMLMessage();
 }
 
-mapping ParticipantDefinition::toLifeline(): Lifeline {
-	name := self.participant.name;
+mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
+	message.name := self.message;
+	sendOccurence.message := message;
+}
+
+mapping Participant::toLifeline(): Lifeline {
+	name := self.name;
 }
 
 mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 
@@ -28,7 +33,22 @@ ReplyMessageDefinition::toUMLMessage {
 }
 
 mapping MessageDefinition::senderAndReceiver(): UML::Message {
-	log('Message from ' + self.sender.name + ' to ' + self.receiver.name);
+	var parentInteraction := self.container().oclAsType(PlantUML::Diagram).resolveone(UML::Interaction);
+	var sendOccurence := object MessageOccurrenceSpecification { 
+		message := result;
+		// log(self.sender.toLifeline().toString());
+		covered := self.sender.resolve(UML::Lifeline);
+		interaction := parentInteraction;
+	};
+	var receiveOccurence := object MessageOccurrenceSpecification {
+		message := result;
+		covered := self.receiver.resolve(UML::Lifeline);
+		interaction := parentInteraction;
+	};
+	sendEvent := sendOccurence;
+	receiveEvent := receiveOccurence;
+	parentInteraction.fragment += sendOccurence;
+	parentInteraction.fragment += receiveOccurence;
 }
 
 mapping RequestMessageDefinition::toUMLMessage(): UML::Message inherits
@@ -42,3 +62,4 @@ MessageDefinition::senderAndReceiver {
 	messageSort := MessageSort::reply;
 	log(messageSort.toString());
 }
+

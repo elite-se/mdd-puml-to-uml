@@ -33,12 +33,12 @@ MessageDefinition:
 	| ReplyMessageDefinition;
 	
 RequestMessageDefinition:
-	('"'sender=[Participant]'"' arrow=RequestArrow '"'receiver=[Participant]'"')
-	(':' message=RequestMessage);
+	('"'sender=[Participant]'"' arrow=(RightRequest) '"'receiver=[Participant]'"') (':' message=RequestMessage)
+	| ('"'receiver=[Participant]'"' arrow=(LeftRequest) '"'sender=[Participant]'"') (':' message=RequestMessage);
 	
 ReplyMessageDefinition:
-	('"'sender=[Participant]'"' arrow=ReplyArrow '"'receiver=[Participant]'"')
-	(':' message=ReplyMessage);
+	('"'sender=[Participant]'"' arrow=RightReply '"'receiver=[Participant]'"') (':' message=ReplyMessage)
+	| ('"'receiver=[Participant]'"' arrow=LeftReply '"'sender=[Participant]'"') (':' message=ReplyMessage);
 	
 // TODO: Handle \"	
 RequestMessage:
@@ -52,16 +52,30 @@ ReplyMessage:
 	STRING;
 	
 enum RequestArrow:
+	RIGHT_SYNC
+	| RIGHT_ASYNC
+	| LEFT_SYNC
+	| LEFT_ASYNC;
+
+enum RightRequest returns RequestArrow:
 	RIGHT_SYNC='->'
-	| RIGHT_ASYNC='->>'
-	| LEFT_SYNC='<-'
+	| RIGHT_ASYNC='->>';
+
+enum LeftRequest returns RequestArrow:
+	LEFT_SYNC='<-'
 	| LEFT_ASYNC='<<-';
 	
 enum ReplyArrow:
-	RIGHT_REPLY='-->>'
-	| LEFT_REPLY='<<--';
-
-
+	RIGHT_REPLY
+	| LEFT_REPLY;
+	
+enum RightReply returns ReplyArrow:
+	RIGHT_REPLY='-->>';
+	
+enum LeftReply returns ReplyArrow:
+	LEFT_REPLY='<<--'
+;
+	
 // TODO: Handle Strings correctly
 @Override 
 terminal STRING:

@@ -289,4 +289,24 @@ class PlantUMLParsingTest {
 		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
 	}
 	
+	
+	@Test
+	def void messageParticipantsCorrect() {
+		val result = parseHelper.parse('''
+			@startuml
+			participant "p1"
+			participant "p2"
+			"p1" -> "p2" : m('t0', 1, 't2', 3, 't4', 5, 't6', 7)
+			@enduml
+		''')
+		
+		Assert.assertEquals(3, result.elements.size())
+		
+		val messageDefinition = result.elements.get(2) as RequestMessageDefinition
+		val participant1 = result.elements.get(0) as ParticipantDefinition
+		val participant2 = result.elements.get(1) as ParticipantDefinition
+		Assert.assertEquals(participant1.getParticipant(), messageDefinition.sender)
+		Assert.assertEquals(participant2.getParticipant(), messageDefinition.receiver)
+	}
+	
 }

@@ -45,11 +45,29 @@ RequestMessage:
 	name=ID ('('(arguments+=RequestMessageArgument (',' arguments+=RequestMessageArgument)*)?')')?;	
 
 RequestMessageArgument:
-	INT
-	| STRING;
+	{RequestMessageArgument} INT
+	| {RequestMessageArgument} STRING
+	| name=ID "=" (INT|STRING) 
+	;
 	
 ReplyMessage:
-	STRING;
+	{ReplyMessage} INT
+	| {ReplyMessage} STRING
+	| name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')?
+	| variable=ID "=" name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=ReplyMessageValue)?
+	;
+	
+ReplyMessageArgument:
+	{ReplyMessageArgument} INT
+	| {ReplyMessageArgument} STRING
+	| name=ID "=" (INT|STRING)
+	| name=ID "=" outParam=ID ":" (INT|STRING) 
+	;
+	
+ReplyMessageValue:
+	INT
+	| STRING
+	;
 	
 enum RequestArrow:
 	RIGHT_SYNC

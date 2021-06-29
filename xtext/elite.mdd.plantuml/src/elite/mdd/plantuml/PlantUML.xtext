@@ -47,24 +47,24 @@ RequestMessage:
 RequestMessageArgument:
 	{RequestMessageArgument} INT
 	| {RequestMessageArgument} STRING
-	| name=ID "=" (INT|STRING) 
+	| name=ID "=" value=Value 
 	;
 	
 ReplyMessage:
 	{ReplyMessage} INT
 	| {ReplyMessage} STRING
 	| name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')?
-	| variable=ID "=" name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=ReplyMessageValue)?
+	| variable=ID "=" name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=Value)?
 	;
 	
 ReplyMessageArgument:
 	{ReplyMessageArgument} INT
 	| {ReplyMessageArgument} STRING
-	| name=ID "=" (INT|STRING)
-	| name=ID "=" outParam=ID ":" (INT|STRING) 
+	| name=ID "=" value=Value
+	| name=ID "=" outParam=ID ":" value=Value 
 	;
 	
-ReplyMessageValue:
+Value:
 	INT
 	| STRING
 	;

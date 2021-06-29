@@ -35,7 +35,12 @@ Workflow {
 			fileExtensions = "plantuml"
 
 			serializer = {
-				generateStub = false
+				generateStub = true
+				generateXtendStub = false
+			}
+			formatter={
+			    generateStub=true
+			    generateXtendStub = false
 			}
 			validator = {
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"

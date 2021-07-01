@@ -1,0 +1,60 @@
+modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
+modeltype PlantUML uses "http://www.mdd.elite/plantuml/PlantUML";
+
+transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
+
+main() {
+	object UML::Model {
+		name := 'Test';
+		packagedElement := source.rootObjects()[Diagram] -> map toInteraction();
+	};
+}
+
+mapping Diagram::toInteraction(): Interaction {
+	lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline();
+	message += self.elements[MessageDefinition] -> map toUMLMessage();
+}
+
+mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
+	message.name := self.message;
+	sendOccurence.message := message;
+}
+
+mapping Participant::toLifeline(): Lifeline {
+	name := self.name;
+}
+
+mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 
+RequestMessageDefinition::toUMLMessage,
+ReplyMessageDefinition::toUMLMessage {
+	
+}
+
+mapping MessageDefinition::senderAndReceiver(): UML::Message {
+	var parentInteraction := self.container().oclAsType(PlantUML::Diagram).resolveone(UML::Interaction);
+	var sendOccurence := object MessageOccurrenceSpecification { 
+		message := result;
+		covered := self.sender.resolveone(UML::Lifeline);
+		interaction := parentInteraction;
+	};
+	var receiveOccurence := object MessageOccurrenceSpecification {
+		message := result;
+		covered := self.receiver.resolve(UML::Lifeline);
+		interaction := parentInteraction;
+	};
+	sendEvent := sendOccurence;
+	receiveEvent := receiveOccurence;
+	parentInteraction.fragment += sendOccurence;
+	parentInteraction.fragment += receiveOccurence;
+}
+
+mapping RequestMessageDefinition::toUMLMessage(): UML::Message inherits
+MessageDefinition::senderAndReceiver {
+	messageSort := MessageSort::synchCall;
+}
+
+mapping ReplyMessageDefinition::toUMLMessage(): UML::Message inherits
+MessageDefinition::senderAndReceiver {
+	messageSort := MessageSort::reply;
+}
+

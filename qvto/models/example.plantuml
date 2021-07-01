@@ -1,0 +1,6 @@
+@startuml
+participant "Bob"
+participant "Alice"
+"Bob" -> "Alice" : test
+"Alice" -->> "Bob" : 'blub'
+@enduml

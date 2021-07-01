@@ -45,23 +45,18 @@ RequestMessage:
 	name=ID ('('(arguments+=RequestMessageArgument (',' arguments+=RequestMessageArgument)*)?')')?;	
 
 RequestMessageArgument:
-	{RequestMessageArgument} INT
-	| {RequestMessageArgument} STRING
+	value=Value
 	| name=ID "=" value=Value 
 	;
 	
 ReplyMessage:
-	{ReplyMessage} INT
-	| {ReplyMessage} STRING
-	| name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')?
+	name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')?
 	| variable=ID "=" name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=Value)?
 	;
 	
 ReplyMessageArgument:
-	{ReplyMessageArgument} INT
-	| {ReplyMessageArgument} STRING
-	| name=ID "=" value=Value
-	| name=ID "=" outParam=ID ":" value=Value 
+	name=ID ":" type=ID
+	| name=ID "=" type=ID (":" value=Value)? 
 	;
 	
 Value:

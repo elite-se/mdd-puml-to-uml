@@ -16,12 +16,44 @@ mapping Diagram::toInteraction(): Interaction {
 }
 
 mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
-	message.name := self.message;
+	message.name := self.message.name;
 	sendOccurence.message := message;
 }
 
-mapping Participant::toLifeline(): Lifeline {
+mapping Participant::toLifeline(): Lifeline disjuncts
+NamedParticipant::toLifeline,
+UnnamedParticipant::toLifeline,
+AnonymousParticipant::toLifeline,
+QuotedNamedParticipant::toLifeline,
+QuotedUnnamedParticipant::toLifeline,
+QuotedAnonymousParticipant::toLifeline {
+	
+}
+
+mapping NamedParticipant::toLifeline(): Lifeline {
 	name := self.name;
+}
+
+mapping UnnamedParticipant::toLifeline(): Lifeline {
+	name := self.name;
+}
+
+mapping AnonymousParticipant::toLifeline(): Lifeline {
+	name := (if self.name.oclIsUndefined() then ': ' + self.type else self.name endif);
+	log(name);
+}
+
+mapping QuotedNamedParticipant::toLifeline(): Lifeline {
+	name := self.name;
+}
+
+mapping QuotedUnnamedParticipant::toLifeline(): Lifeline {
+	name := self.name;
+}
+
+mapping QuotedAnonymousParticipant::toLifeline(): Lifeline {
+	name := (if self.name.oclIsUndefined() then ': ' + self.type else self.name endif);
+	log(name);
 }
 
 mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 

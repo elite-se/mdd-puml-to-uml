@@ -5,6 +5,9 @@ package elite.mdd.plantuml.tests;
 
 import com.google.inject.Inject;
 import elite.mdd.plantuml.plantUML.Diagram;
+import elite.mdd.plantuml.plantUML.ParticipantDefinition;
+import elite.mdd.plantuml.plantUML.RequestMessageDefinition;
+import elite.mdd.plantuml.plantUML.SequenceElement;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
@@ -12,7 +15,9 @@ import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.extensions.InjectionExtension;
 import org.eclipse.xtext.testing.util.ParseHelper;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.ExclusiveRange;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,12 +30,57 @@ public class PlantUMLParsingTest {
   private ParseHelper<Diagram> parseHelper;
   
   @Test
-  public void loadModel() {
+  public void missingTildeParticipant() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Hello Xtext!");
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("actor \"testParticipant");
+      _builder.newLine();
+      _builder.append("@enduml");
       _builder.newLine();
       final Diagram result = this.parseHelper.parse(_builder);
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      int _size = errors.size();
+      boolean _equals = (_size == 1);
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_equals, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void noContent() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assertions.assertNull(result);
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void oneParticipant() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("actor \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
       Assertions.assertNotNull(result);
       final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
       boolean _isEmpty = errors.isEmpty();
@@ -39,6 +89,382 @@ public class PlantUMLParsingTest {
       String _join = IterableExtensions.join(errors, ", ");
       _builder_1.append(_join);
       Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  public void twoParticipant() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("actor \"testParticipant1\"");
+      _builder.newLine();
+      _builder.append("actor \"testParticipant2\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(2, result.getElements().size());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void actorParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("actor \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("ACTOR", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void boundaryParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("boundary \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("BOUNDARY", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void controlParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("control \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("CONTROL", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void collectionsParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("collections \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("COLLECTIONS", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void entityParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("entity \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("ENTITY", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void databaseParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("database \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("DATABASE", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void participantParticipantTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("participant \"testParticipant\"");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(1, result.getElements().size());
+      SequenceElement _head = IterableExtensions.<SequenceElement>head(result.getElements());
+      final ParticipantDefinition property = ((ParticipantDefinition) _head);
+      Assert.assertEquals("PARTICIPANT", property.getShape().getName());
+      Assert.assertEquals("testParticipant", property.getParticipant().getName());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void singleRequestMessageNoArgumentTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("participant \"p1\"");
+      _builder.newLine();
+      _builder.append("participant \"p2\"");
+      _builder.newLine();
+      _builder.append("\"p1\" -> \"p2\" : m()");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(3, result.getElements().size());
+      SequenceElement _get = result.getElements().get(2);
+      final RequestMessageDefinition messageDefinition = ((RequestMessageDefinition) _get);
+      Assert.assertEquals("p1", messageDefinition.getSender().getName());
+      Assert.assertEquals("p2", messageDefinition.getReceiver().getName());
+      Assert.assertEquals("RIGHT_SYNC", messageDefinition.getArrow().getName());
+      Assert.assertEquals("m", messageDefinition.getMessage().getName());
+      Assert.assertEquals(0, messageDefinition.getMessage().getArguments().size());
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void singleRequestMessageOneArgumentTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("participant \"p1\"");
+      _builder.newLine();
+      _builder.append("participant \"p2\"");
+      _builder.newLine();
+      _builder.append("\"p1\" -> \"p2\" : m(0)");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(3, result.getElements().size());
+      SequenceElement _get = result.getElements().get(2);
+      final RequestMessageDefinition messageDefinition = ((RequestMessageDefinition) _get);
+      Assert.assertEquals("p1", messageDefinition.getSender().getName());
+      Assert.assertEquals("p2", messageDefinition.getReceiver().getName());
+      Assert.assertEquals("RIGHT_SYNC", messageDefinition.getArrow().getName());
+      Assert.assertEquals("m", messageDefinition.getMessage().getName());
+      Assert.assertEquals(1, messageDefinition.getMessage().getArguments().size());
+      Assert.assertEquals("0", messageDefinition.getMessage().getArguments().get(0));
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void singleRequestMessageManyArgumentTest() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("participant \"p1\"");
+      _builder.newLine();
+      _builder.append("participant \"p2\"");
+      _builder.newLine();
+      _builder.append("\"p1\" -> \"p2\" : m(\'t0\', 1, \'t2\', 3, \'t4\', 5, \'t6\', 7)");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(3, result.getElements().size());
+      SequenceElement _get = result.getElements().get(2);
+      final RequestMessageDefinition messageDefinition = ((RequestMessageDefinition) _get);
+      Assert.assertEquals("p1", messageDefinition.getSender().getName());
+      Assert.assertEquals("p2", messageDefinition.getReceiver().getName());
+      Assert.assertEquals("RIGHT_SYNC", messageDefinition.getArrow().getName());
+      Assert.assertEquals("m", messageDefinition.getMessage().getName());
+      Assert.assertEquals(8, messageDefinition.getMessage().getArguments().size());
+      int _size = messageDefinition.getMessage().getArguments().size();
+      ExclusiveRange _doubleDotLessThan = new ExclusiveRange(0, _size, true);
+      for (final Integer i : _doubleDotLessThan) {
+        if ((((i).intValue() % 2) == 0)) {
+          Assert.assertEquals((("\'t" + i) + "\'"), messageDefinition.getMessage().getArguments().get((i).intValue()));
+        } else {
+          Assert.assertEquals(("" + i), messageDefinition.getMessage().getArguments().get((i).intValue()));
+        }
+      }
+      Assertions.assertNotNull(result);
+      final EList<Resource.Diagnostic> errors = result.eResource().getErrors();
+      boolean _isEmpty = errors.isEmpty();
+      StringConcatenation _builder_1 = new StringConcatenation();
+      _builder_1.append("Unexpected errors: ");
+      String _join = IterableExtensions.join(errors, ", ");
+      _builder_1.append(_join);
+      Assertions.assertTrue(_isEmpty, _builder_1.toString());
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Test
+  public void messageParticipantsCorrect() {
+    try {
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("@startuml");
+      _builder.newLine();
+      _builder.append("participant \"p1\"");
+      _builder.newLine();
+      _builder.append("participant \"p2\"");
+      _builder.newLine();
+      _builder.append("\"p1\" -> \"p2\" : m(\'t0\', 1, \'t2\', 3, \'t4\', 5, \'t6\', 7)");
+      _builder.newLine();
+      _builder.append("@enduml");
+      _builder.newLine();
+      final Diagram result = this.parseHelper.parse(_builder);
+      Assert.assertEquals(3, result.getElements().size());
+      SequenceElement _get = result.getElements().get(2);
+      final RequestMessageDefinition messageDefinition = ((RequestMessageDefinition) _get);
+      SequenceElement _get_1 = result.getElements().get(0);
+      final ParticipantDefinition participant1 = ((ParticipantDefinition) _get_1);
+      SequenceElement _get_2 = result.getElements().get(1);
+      final ParticipantDefinition participant2 = ((ParticipantDefinition) _get_2);
+      Assert.assertEquals(participant1.getParticipant(), messageDefinition.getSender());
+      Assert.assertEquals(participant2.getParticipant(), messageDefinition.getReceiver());
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_sPdS0NTlEeuro4h0vUA0TQ" name="Test">
-  <packagedElement xmi:type="uml:Interaction" xmi:id="_sPdS0dTlEeuro4h0vUA0TQ">
-    <lifeline xmi:id="_sPdS0tTlEeuro4h0vUA0TQ" name="Bob" coveredBy="_sPdS1NTlEeuro4h0vUA0TQ _sPdS19TlEeuro4h0vUA0TQ"/>
-    <lifeline xmi:id="_sPdS09TlEeuro4h0vUA0TQ" name="Alice" coveredBy="_sPdS1dTlEeuro4h0vUA0TQ _sPdS1tTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1NTlEeuro4h0vUA0TQ" covered="_sPdS0tTlEeuro4h0vUA0TQ" message="_sPd54NTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1dTlEeuro4h0vUA0TQ" covered="_sPdS09TlEeuro4h0vUA0TQ" message="_sPd54NTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1tTlEeuro4h0vUA0TQ" covered="_sPdS09TlEeuro4h0vUA0TQ" message="_sPd54dTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS19TlEeuro4h0vUA0TQ" covered="_sPdS0tTlEeuro4h0vUA0TQ" message="_sPd54dTlEeuro4h0vUA0TQ"/>
-    <message xmi:id="_sPd54NTlEeuro4h0vUA0TQ" receiveEvent="_sPdS1dTlEeuro4h0vUA0TQ" sendEvent="_sPdS1NTlEeuro4h0vUA0TQ"/>
-    <message xmi:id="_sPd54dTlEeuro4h0vUA0TQ" messageSort="reply" receiveEvent="_sPdS19TlEeuro4h0vUA0TQ" sendEvent="_sPdS1tTlEeuro4h0vUA0TQ"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_4Amu8NpyEeufMOqeQePraQ" name="Weather API">
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_4Amu8dpyEeufMOqeQePraQ">
+    <lifeline xmi:id="_4Amu8tpyEeufMOqeQePraQ" name="node0" coveredBy="_4Amu9tpyEeufMOqeQePraQ _4Amu99pyEeufMOqeQePraQ _4Amu-tpyEeufMOqeQePraQ _4Amu-9pyEeufMOqeQePraQ"/>
+    <lifeline xmi:id="_4Amu89pyEeufMOqeQePraQ" name="anonymusWeatherAPI1" coveredBy="_4Amu-NpyEeufMOqeQePraQ _4Amu-dpyEeufMOqeQePraQ"/>
+    <lifeline xmi:id="_4Amu9NpyEeufMOqeQePraQ" name="Bob" coveredBy="_4Amu9dpyEeufMOqeQePraQ _4Amu_NpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu9dpyEeufMOqeQePraQ" covered="_4Amu9NpyEeufMOqeQePraQ" message="_4Amu_dpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu9tpyEeufMOqeQePraQ" covered="_4Amu8tpyEeufMOqeQePraQ" message="_4Amu_dpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu99pyEeufMOqeQePraQ" covered="_4Amu8tpyEeufMOqeQePraQ" message="_4Amu_tpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu-NpyEeufMOqeQePraQ" covered="_4Amu89pyEeufMOqeQePraQ" message="_4Amu_tpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu-dpyEeufMOqeQePraQ" covered="_4Amu89pyEeufMOqeQePraQ" message="_4Amu_9pyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu-tpyEeufMOqeQePraQ" covered="_4Amu8tpyEeufMOqeQePraQ" message="_4Amu_9pyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu-9pyEeufMOqeQePraQ" covered="_4Amu8tpyEeufMOqeQePraQ" message="_4AmvANpyEeufMOqeQePraQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_4Amu_NpyEeufMOqeQePraQ" covered="_4Amu9NpyEeufMOqeQePraQ" message="_4AmvANpyEeufMOqeQePraQ"/>
+    <message xmi:id="_4Amu_dpyEeufMOqeQePraQ" receiveEvent="_4Amu9tpyEeufMOqeQePraQ" sendEvent="_4Amu9dpyEeufMOqeQePraQ"/>
+    <message xmi:id="_4Amu_tpyEeufMOqeQePraQ" receiveEvent="_4Amu-NpyEeufMOqeQePraQ" sendEvent="_4Amu99pyEeufMOqeQePraQ"/>
+    <message xmi:id="_4Amu_9pyEeufMOqeQePraQ" messageSort="reply" receiveEvent="_4Amu-tpyEeufMOqeQePraQ" sendEvent="_4Amu-dpyEeufMOqeQePraQ"/>
+    <message xmi:id="_4AmvANpyEeufMOqeQePraQ" messageSort="reply" receiveEvent="_4Amu_NpyEeufMOqeQePraQ" sendEvent="_4Amu-9pyEeufMOqeQePraQ"/>
   </packagedElement>
 </uml:Model>

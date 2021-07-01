@@ -5,8 +5,19 @@ transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML)
 
 main() {
 	object UML::Model {
-		name := 'Test';
-		packagedElement := source.rootObjects()[Diagram] -> map toInteraction();
+		var diagrams = source.rootObjects()[Diagram];
+		name := diagrams -> iterate( i: Diagram; newName : String = '' | 
+			newName 
+			+ (if i.elements[TitleDefinition]->isEmpty() then 'Unnamed Model' else '' endif) 
+			+ i.elements[TitleDefinition] -> iterate ( t: TitleDefinition; newTitle : String = '' |
+				newTitle + t.titleParts -> iterate ( tp: String; wholeTitle : String = '' |
+					wholeTitle 
+					+ (if wholeTitle = '' then '' else ' ' endif)
+					+ tp
+				)
+			)
+		);
+		packagedElement := diagrams -> map toInteraction();
 	};
 }
 
@@ -16,7 +27,7 @@ mapping Diagram::toInteraction(): Interaction {
 }
 
 mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
-	message.name := self.message;
+	message.name := self.message.name;
 	sendOccurence.message := message;
 }
 

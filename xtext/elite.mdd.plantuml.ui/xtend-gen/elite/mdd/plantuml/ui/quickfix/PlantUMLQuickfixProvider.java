@@ -20,8 +20,8 @@ import org.eclipse.xtext.validation.Issue;
  */
 @SuppressWarnings("all")
 public class PlantUMLQuickfixProvider extends DefaultQuickfixProvider {
-  /* @Fix(PlantUMLValidator.class./* name is null */)
-   */public void addNameToParticipant(final Issue issue, final IssueResolutionAcceptor acceptor) {
+  @Fix(PlantUMLValidator.PARTICIPANT_NAME_MISSING)
+  public void addNameToParticipant(final Issue issue, final IssueResolutionAcceptor acceptor) {
     String _get = issue.getData()[0];
     String _plus = ("Add name to participant: " + _get);
     final ISemanticModification _function = (EObject element, IModificationContext context) -> {

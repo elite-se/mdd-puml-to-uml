@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalPlantUMLLexer extends Lexer {
-    public static final int RULE_STRING=4;
+    public static final int RULE_STRING=5;
     public static final int RULE_SL_COMMENT=8;
     public static final int T__19=19;
     public static final int T__15=15;
@@ -20,18 +20,24 @@ public class InternalPlantUMLLexer extends Lexer {
     public static final int T__17=17;
     public static final int T__18=18;
     public static final int T__11=11;
+    public static final int T__33=33;
     public static final int T__12=12;
+    public static final int T__34=34;
     public static final int T__13=13;
+    public static final int T__35=35;
     public static final int T__14=14;
+    public static final int T__36=36;
     public static final int EOF=-1;
     public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_ID=6;
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
     public static final int T__26=26;
     public static final int T__27=27;
     public static final int T__28=28;
-    public static final int RULE_INT=5;
+    public static final int RULE_INT=4;
     public static final int T__29=29;
     public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
@@ -59,10 +65,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:11:7: ( 'actor' )
-            // InternalPlantUML.g:11:9: 'actor'
+            // InternalPlantUML.g:11:7: ( '-->>' )
+            // InternalPlantUML.g:11:9: '-->>'
             {
-            match("actor"); 
+            match("-->>"); 
 
 
             }
@@ -80,10 +86,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:12:7: ( 'boundary' )
-            // InternalPlantUML.g:12:9: 'boundary'
+            // InternalPlantUML.g:12:7: ( '<<--' )
+            // InternalPlantUML.g:12:9: '<<--'
             {
-            match("boundary"); 
+            match("<<--"); 
 
 
             }
@@ -101,10 +107,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:13:7: ( 'control' )
-            // InternalPlantUML.g:13:9: 'control'
+            // InternalPlantUML.g:13:7: ( 'actor' )
+            // InternalPlantUML.g:13:9: 'actor'
             {
-            match("control"); 
+            match("actor"); 
 
 
             }
@@ -122,10 +128,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:14:7: ( 'collections' )
-            // InternalPlantUML.g:14:9: 'collections'
+            // InternalPlantUML.g:14:7: ( 'boundary' )
+            // InternalPlantUML.g:14:9: 'boundary'
             {
-            match("collections"); 
+            match("boundary"); 
 
 
             }
@@ -143,10 +149,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:15:7: ( 'entity' )
-            // InternalPlantUML.g:15:9: 'entity'
+            // InternalPlantUML.g:15:7: ( 'control' )
+            // InternalPlantUML.g:15:9: 'control'
             {
-            match("entity"); 
+            match("control"); 
 
 
             }
@@ -164,10 +170,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:16:7: ( 'database' )
-            // InternalPlantUML.g:16:9: 'database'
+            // InternalPlantUML.g:16:7: ( 'collections' )
+            // InternalPlantUML.g:16:9: 'collections'
             {
-            match("database"); 
+            match("collections"); 
 
 
             }
@@ -185,10 +191,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:17:7: ( 'participant' )
-            // InternalPlantUML.g:17:9: 'participant'
+            // InternalPlantUML.g:17:7: ( 'entity' )
+            // InternalPlantUML.g:17:9: 'entity'
             {
-            match("participant"); 
+            match("entity"); 
 
 
             }
@@ -206,10 +212,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:18:7: ( '->' )
-            // InternalPlantUML.g:18:9: '->'
+            // InternalPlantUML.g:18:7: ( 'database' )
+            // InternalPlantUML.g:18:9: 'database'
             {
-            match("->"); 
+            match("database"); 
 
 
             }
@@ -227,10 +233,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:19:7: ( '->>' )
-            // InternalPlantUML.g:19:9: '->>'
+            // InternalPlantUML.g:19:7: ( 'participant' )
+            // InternalPlantUML.g:19:9: 'participant'
             {
-            match("->>"); 
+            match("participant"); 
 
 
             }
@@ -248,10 +254,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:20:7: ( '<-' )
-            // InternalPlantUML.g:20:9: '<-'
+            // InternalPlantUML.g:20:7: ( '->' )
+            // InternalPlantUML.g:20:9: '->'
             {
-            match("<-"); 
+            match("->"); 
 
 
             }
@@ -269,10 +275,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:21:7: ( '<<-' )
-            // InternalPlantUML.g:21:9: '<<-'
+            // InternalPlantUML.g:21:7: ( '->>' )
+            // InternalPlantUML.g:21:9: '->>'
             {
-            match("<<-"); 
+            match("->>"); 
 
 
             }
@@ -290,10 +296,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:22:7: ( '-->>' )
-            // InternalPlantUML.g:22:9: '-->>'
+            // InternalPlantUML.g:22:7: ( '<-' )
+            // InternalPlantUML.g:22:9: '<-'
             {
-            match("-->>"); 
+            match("<-"); 
 
 
             }
@@ -311,10 +317,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:23:7: ( '<<--' )
-            // InternalPlantUML.g:23:9: '<<--'
+            // InternalPlantUML.g:23:7: ( '<<-' )
+            // InternalPlantUML.g:23:9: '<<-'
             {
-            match("<<--"); 
+            match("<<-"); 
 
 
             }
@@ -374,10 +380,11 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:26:7: ( '\"' )
-            // InternalPlantUML.g:26:9: '\"'
+            // InternalPlantUML.g:26:7: ( 'as' )
+            // InternalPlantUML.g:26:9: 'as'
             {
-            match('\"'); 
+            match("as"); 
+
 
             }
 
@@ -394,10 +401,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:27:7: ( ':' )
-            // InternalPlantUML.g:27:9: ':'
+            // InternalPlantUML.g:27:7: ( '[' )
+            // InternalPlantUML.g:27:9: '['
             {
-            match(':'); 
+            match('['); 
 
             }
 
@@ -414,10 +421,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:28:7: ( '(' )
-            // InternalPlantUML.g:28:9: '('
+            // InternalPlantUML.g:28:7: ( ']' )
+            // InternalPlantUML.g:28:9: ']'
             {
-            match('('); 
+            match(']'); 
 
             }
 
@@ -434,10 +441,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:29:7: ( ')' )
-            // InternalPlantUML.g:29:9: ')'
+            // InternalPlantUML.g:29:7: ( ':' )
+            // InternalPlantUML.g:29:9: ':'
             {
-            match(')'); 
+            match(':'); 
 
             }
 
@@ -454,10 +461,11 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:30:7: ( ',' )
-            // InternalPlantUML.g:30:9: ','
+            // InternalPlantUML.g:30:7: ( 'ref' )
+            // InternalPlantUML.g:30:9: 'ref'
             {
-            match(','); 
+            match("ref"); 
+
 
             }
 
@@ -469,16 +477,137 @@ public class InternalPlantUMLLexer extends Lexer {
     }
     // $ANTLR end "T__30"
 
+    // $ANTLR start "T__31"
+    public final void mT__31() throws RecognitionException {
+        try {
+            int _type = T__31;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:31:7: ( 'strict' )
+            // InternalPlantUML.g:31:9: 'strict'
+            {
+            match("strict"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__31"
+
+    // $ANTLR start "T__32"
+    public final void mT__32() throws RecognitionException {
+        try {
+            int _type = T__32;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:32:7: ( '\"' )
+            // InternalPlantUML.g:32:9: '\"'
+            {
+            match('\"'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__32"
+
+    // $ANTLR start "T__33"
+    public final void mT__33() throws RecognitionException {
+        try {
+            int _type = T__33;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:33:7: ( '(' )
+            // InternalPlantUML.g:33:9: '('
+            {
+            match('('); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__33"
+
+    // $ANTLR start "T__34"
+    public final void mT__34() throws RecognitionException {
+        try {
+            int _type = T__34;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:34:7: ( ')' )
+            // InternalPlantUML.g:34:9: ')'
+            {
+            match(')'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__34"
+
+    // $ANTLR start "T__35"
+    public final void mT__35() throws RecognitionException {
+        try {
+            int _type = T__35;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:35:7: ( ',' )
+            // InternalPlantUML.g:35:9: ','
+            {
+            match(','); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__35"
+
+    // $ANTLR start "T__36"
+    public final void mT__36() throws RecognitionException {
+        try {
+            int _type = T__36;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalPlantUML.g:36:7: ( '=' )
+            // InternalPlantUML.g:36:9: '='
+            {
+            match('='); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__36"
+
     // $ANTLR start "RULE_STRING"
     public final void mRULE_STRING() throws RecognitionException {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1819:13: ( '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
-            // InternalPlantUML.g:1819:15: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+            // InternalPlantUML.g:4983:13: ( '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalPlantUML.g:4983:15: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
             {
             match('\''); 
-            // InternalPlantUML.g:1819:20: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+            // InternalPlantUML.g:4983:20: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
             loop1:
             do {
                 int alt1=3;
@@ -494,7 +623,7 @@ public class InternalPlantUMLLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalPlantUML.g:1819:21: '\\\\' .
+            	    // InternalPlantUML.g:4983:21: '\\\\' .
             	    {
             	    match('\\'); 
             	    matchAny(); 
@@ -502,7 +631,7 @@ public class InternalPlantUMLLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // InternalPlantUML.g:1819:28: ~ ( ( '\\\\' | '\\'' ) )
+            	    // InternalPlantUML.g:4983:28: ~ ( ( '\\\\' | '\\'' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -539,10 +668,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1821:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalPlantUML.g:1821:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalPlantUML.g:4985:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalPlantUML.g:4985:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalPlantUML.g:1821:11: ( '^' )?
+            // InternalPlantUML.g:4985:11: ( '^' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -551,7 +680,7 @@ public class InternalPlantUMLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // InternalPlantUML.g:1821:11: '^'
+                    // InternalPlantUML.g:4985:11: '^'
                     {
                     match('^'); 
 
@@ -569,7 +698,7 @@ public class InternalPlantUMLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalPlantUML.g:1821:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalPlantUML.g:4985:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -618,10 +747,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1823:10: ( ( '0' .. '9' )+ )
-            // InternalPlantUML.g:1823:12: ( '0' .. '9' )+
+            // InternalPlantUML.g:4987:10: ( ( '0' .. '9' )+ )
+            // InternalPlantUML.g:4987:12: ( '0' .. '9' )+
             {
-            // InternalPlantUML.g:1823:12: ( '0' .. '9' )+
+            // InternalPlantUML.g:4987:12: ( '0' .. '9' )+
             int cnt4=0;
             loop4:
             do {
@@ -635,7 +764,7 @@ public class InternalPlantUMLLexer extends Lexer {
 
                 switch (alt4) {
             	case 1 :
-            	    // InternalPlantUML.g:1823:13: '0' .. '9'
+            	    // InternalPlantUML.g:4987:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -667,12 +796,12 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1825:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // InternalPlantUML.g:1825:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalPlantUML.g:4989:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalPlantUML.g:4989:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // InternalPlantUML.g:1825:24: ( options {greedy=false; } : . )*
+            // InternalPlantUML.g:4989:24: ( options {greedy=false; } : . )*
             loop5:
             do {
                 int alt5=2;
@@ -697,7 +826,7 @@ public class InternalPlantUMLLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // InternalPlantUML.g:1825:52: .
+            	    // InternalPlantUML.g:4989:52: .
             	    {
             	    matchAny(); 
 
@@ -727,12 +856,12 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1827:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // InternalPlantUML.g:1827:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalPlantUML.g:4991:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalPlantUML.g:4991:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // InternalPlantUML.g:1827:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalPlantUML.g:4991:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop6:
             do {
                 int alt6=2;
@@ -745,7 +874,7 @@ public class InternalPlantUMLLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // InternalPlantUML.g:1827:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalPlantUML.g:4991:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -765,7 +894,7 @@ public class InternalPlantUMLLexer extends Lexer {
                 }
             } while (true);
 
-            // InternalPlantUML.g:1827:40: ( ( '\\r' )? '\\n' )?
+            // InternalPlantUML.g:4991:40: ( ( '\\r' )? '\\n' )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -774,9 +903,9 @@ public class InternalPlantUMLLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // InternalPlantUML.g:1827:41: ( '\\r' )? '\\n'
+                    // InternalPlantUML.g:4991:41: ( '\\r' )? '\\n'
                     {
-                    // InternalPlantUML.g:1827:41: ( '\\r' )?
+                    // InternalPlantUML.g:4991:41: ( '\\r' )?
                     int alt7=2;
                     int LA7_0 = input.LA(1);
 
@@ -785,7 +914,7 @@ public class InternalPlantUMLLexer extends Lexer {
                     }
                     switch (alt7) {
                         case 1 :
-                            // InternalPlantUML.g:1827:41: '\\r'
+                            // InternalPlantUML.g:4991:41: '\\r'
                             {
                             match('\r'); 
 
@@ -817,10 +946,10 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1829:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // InternalPlantUML.g:1829:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalPlantUML.g:4993:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalPlantUML.g:4993:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // InternalPlantUML.g:1829:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalPlantUML.g:4993:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt9=0;
             loop9:
             do {
@@ -874,8 +1003,8 @@ public class InternalPlantUMLLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalPlantUML.g:1831:16: ( . )
-            // InternalPlantUML.g:1831:18: .
+            // InternalPlantUML.g:4995:16: ( . )
+            // InternalPlantUML.g:4995:18: .
             {
             matchAny(); 
 
@@ -890,8 +1019,8 @@ public class InternalPlantUMLLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // InternalPlantUML.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | RULE_STRING | RULE_ID | RULE_INT | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt10=27;
+        // InternalPlantUML.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | RULE_STRING | RULE_ID | RULE_INT | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt10=33;
         alt10 = dfa10.predict(input);
         switch (alt10) {
             case 1 :
@@ -1035,49 +1164,91 @@ public class InternalPlantUMLLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // InternalPlantUML.g:1:130: RULE_STRING
+                // InternalPlantUML.g:1:130: T__31
+                {
+                mT__31(); 
+
+                }
+                break;
+            case 22 :
+                // InternalPlantUML.g:1:136: T__32
+                {
+                mT__32(); 
+
+                }
+                break;
+            case 23 :
+                // InternalPlantUML.g:1:142: T__33
+                {
+                mT__33(); 
+
+                }
+                break;
+            case 24 :
+                // InternalPlantUML.g:1:148: T__34
+                {
+                mT__34(); 
+
+                }
+                break;
+            case 25 :
+                // InternalPlantUML.g:1:154: T__35
+                {
+                mT__35(); 
+
+                }
+                break;
+            case 26 :
+                // InternalPlantUML.g:1:160: T__36
+                {
+                mT__36(); 
+
+                }
+                break;
+            case 27 :
+                // InternalPlantUML.g:1:166: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 22 :
-                // InternalPlantUML.g:1:142: RULE_ID
+            case 28 :
+                // InternalPlantUML.g:1:178: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 23 :
-                // InternalPlantUML.g:1:150: RULE_INT
+            case 29 :
+                // InternalPlantUML.g:1:186: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 24 :
-                // InternalPlantUML.g:1:159: RULE_ML_COMMENT
+            case 30 :
+                // InternalPlantUML.g:1:195: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 25 :
-                // InternalPlantUML.g:1:175: RULE_SL_COMMENT
+            case 31 :
+                // InternalPlantUML.g:1:211: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 26 :
-                // InternalPlantUML.g:1:191: RULE_WS
+            case 32 :
+                // InternalPlantUML.g:1:227: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 27 :
-                // InternalPlantUML.g:1:199: RULE_ANY_OTHER
+            case 33 :
+                // InternalPlantUML.g:1:235: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1091,115 +1262,134 @@ public class InternalPlantUMLLexer extends Lexer {
 
     protected DFA10 dfa10 = new DFA10(this);
     static final String DFA10_eotS =
-        "\1\uffff\6\27\3\25\5\uffff\2\25\2\uffff\1\25\2\uffff\1\27\1\uffff\5\27\1\65\17\uffff\7\27\2\uffff\1\77\7\27\2\uffff\1\107\6\27\1\uffff\3\27\1\121\3\27\1\125\1\27\1\uffff\2\27\1\131\1\uffff\1\27\1\133\1\27\1\uffff\1\27\1\uffff\3\27\1\141\1\142\2\uffff";
+        "\1\uffff\2\32\6\41\1\32\3\uffff\2\41\5\uffff\2\32\2\uffff\1\32\3\uffff\1\71\2\uffff\1\41\1\74\1\uffff\5\41\5\uffff\2\41\14\uffff\1\106\1\41\1\uffff\6\41\1\116\1\41\2\uffff\7\41\1\uffff\1\41\1\130\7\41\1\uffff\3\41\1\143\2\41\1\146\1\41\1\150\1\41\1\uffff\2\41\1\uffff\1\154\1\uffff\1\41\1\156\1\41\1\uffff\1\41\1\uffff\3\41\1\164\1\165\2\uffff";
     static final String DFA10_eofS =
-        "\143\uffff";
+        "\166\uffff";
     static final String DFA10_minS =
-        "\1\0\1\143\2\157\1\156\2\141\2\55\1\145\5\uffff\1\0\1\101\2\uffff\1\52\2\uffff\1\164\1\uffff\1\165\1\154\2\164\1\162\1\76\2\uffff\1\55\14\uffff\1\157\1\156\1\164\1\154\1\151\1\141\1\164\2\uffff\1\55\1\162\1\144\1\162\1\145\1\164\1\142\1\151\2\uffff\1\60\1\141\1\157\1\143\1\171\1\141\1\143\1\uffff\1\162\1\154\1\164\1\60\1\163\1\151\1\171\1\60\1\151\1\uffff\1\145\1\160\1\60\1\uffff\1\157\1\60\1\141\1\uffff\1\156\1\uffff\1\156\1\163\1\164\2\60\2\uffff";
+        "\1\0\2\55\1\143\2\157\1\156\2\141\1\145\3\uffff\1\145\1\164\5\uffff\1\0\1\101\2\uffff\1\52\3\uffff\1\76\1\55\1\uffff\1\164\1\60\1\uffff\1\165\1\154\2\164\1\162\5\uffff\1\146\1\162\14\uffff\1\55\1\157\1\uffff\1\156\1\164\1\154\1\151\1\141\1\164\1\60\1\151\2\uffff\1\162\1\144\1\162\1\145\1\164\1\142\1\151\1\uffff\1\143\1\60\1\141\1\157\1\143\1\171\1\141\1\143\1\164\1\uffff\1\162\1\154\1\164\1\60\1\163\1\151\1\60\1\171\1\60\1\151\1\uffff\1\145\1\160\1\uffff\1\60\1\uffff\1\157\1\60\1\141\1\uffff\1\156\1\uffff\1\156\1\163\1\164\2\60\2\uffff";
     static final String DFA10_maxS =
-        "\1\uffff\1\143\2\157\1\156\2\141\1\76\1\74\1\163\5\uffff\1\uffff\1\172\2\uffff\1\57\2\uffff\1\164\1\uffff\1\165\1\156\2\164\1\162\1\76\2\uffff\1\55\14\uffff\1\157\1\156\1\164\1\154\1\151\1\141\1\164\2\uffff\1\55\1\162\1\144\1\162\1\145\1\164\1\142\1\151\2\uffff\1\172\1\141\1\157\1\143\1\171\1\141\1\143\1\uffff\1\162\1\154\1\164\1\172\1\163\1\151\1\171\1\172\1\151\1\uffff\1\145\1\160\1\172\1\uffff\1\157\1\172\1\141\1\uffff\1\156\1\uffff\1\156\1\163\1\164\2\172\2\uffff";
+        "\1\uffff\1\76\1\74\1\163\2\157\1\156\2\141\1\163\3\uffff\1\145\1\164\5\uffff\1\uffff\1\172\2\uffff\1\57\3\uffff\1\76\1\55\1\uffff\1\164\1\172\1\uffff\1\165\1\156\2\164\1\162\5\uffff\1\146\1\162\14\uffff\1\55\1\157\1\uffff\1\156\1\164\1\154\1\151\1\141\1\164\1\172\1\151\2\uffff\1\162\1\144\1\162\1\145\1\164\1\142\1\151\1\uffff\1\143\1\172\1\141\1\157\1\143\1\171\1\141\1\143\1\164\1\uffff\1\162\1\154\1\164\1\172\1\163\1\151\1\172\1\171\1\172\1\151\1\uffff\1\145\1\160\1\uffff\1\172\1\uffff\1\157\1\172\1\141\1\uffff\1\156\1\uffff\1\156\1\163\1\164\2\172\2\uffff";
     static final String DFA10_acceptS =
-        "\12\uffff\1\20\1\21\1\22\1\23\1\24\2\uffff\1\26\1\27\1\uffff\1\32\1\33\1\uffff\1\26\6\uffff\1\14\1\12\1\uffff\1\16\1\17\1\20\1\21\1\22\1\23\1\24\1\25\1\27\1\30\1\31\1\32\7\uffff\1\11\1\10\10\uffff\1\15\1\13\7\uffff\1\1\11\uffff\1\5\3\uffff\1\3\3\uffff\1\2\1\uffff\1\6\5\uffff\1\4\1\7";
+        "\12\uffff\1\21\1\22\1\23\2\uffff\1\26\1\27\1\30\1\31\1\32\2\uffff\1\34\1\35\1\uffff\1\40\1\41\1\1\2\uffff\1\14\2\uffff\1\34\5\uffff\1\16\1\17\1\21\1\22\1\23\2\uffff\1\26\1\27\1\30\1\31\1\32\1\33\1\35\1\36\1\37\1\40\1\13\1\12\2\uffff\1\20\10\uffff\1\2\1\15\7\uffff\1\24\11\uffff\1\3\12\uffff\1\7\2\uffff\1\25\1\uffff\1\5\3\uffff\1\4\1\uffff\1\10\5\uffff\1\6\1\11";
     static final String DFA10_specialS =
-        "\1\0\16\uffff\1\1\123\uffff}>";
+        "\1\0\23\uffff\1\1\141\uffff}>";
     static final String[] DFA10_transitionS = {
-            "\11\25\2\24\2\25\1\24\22\25\1\24\1\25\1\12\4\25\1\17\1\14\1\15\2\25\1\16\1\7\1\25\1\23\12\22\1\13\1\25\1\10\3\25\1\11\32\21\3\25\1\20\1\21\1\25\1\1\1\2\1\3\1\5\1\4\12\21\1\6\12\21\uff85\25",
-            "\1\26",
-            "\1\30",
-            "\1\31",
-            "\1\32",
-            "\1\33",
-            "\1\34",
-            "\1\36\20\uffff\1\35",
-            "\1\37\16\uffff\1\40",
-            "\1\42\15\uffff\1\41",
+            "\11\32\2\31\2\32\1\31\22\32\1\31\1\32\1\17\4\32\1\24\1\20\1\21\2\32\1\22\1\1\1\32\1\30\12\27\1\14\1\32\1\2\1\23\2\32\1\11\32\26\1\12\1\32\1\13\1\25\1\26\1\32\1\3\1\4\1\5\1\7\1\6\12\26\1\10\1\26\1\15\1\16\7\26\uff85\32",
+            "\1\33\20\uffff\1\34",
+            "\1\36\16\uffff\1\35",
+            "\1\37\17\uffff\1\40",
+            "\1\42",
+            "\1\43",
+            "\1\44",
+            "\1\45",
+            "\1\46",
+            "\1\50\15\uffff\1\47",
             "",
             "",
             "",
-            "",
-            "",
-            "\0\50",
-            "\32\27\4\uffff\1\27\1\uffff\32\27",
-            "",
-            "",
-            "\1\52\4\uffff\1\53",
-            "",
-            "",
+            "\1\54",
             "\1\55",
             "",
-            "\1\56",
-            "\1\60\1\uffff\1\57",
-            "\1\61",
-            "\1\62",
-            "\1\63",
-            "\1\64",
-            "",
-            "",
-            "\1\66",
             "",
             "",
             "",
             "",
+            "\0\63",
+            "\32\41\4\uffff\1\41\1\uffff\32\41",
+            "",
+            "",
+            "\1\65\4\uffff\1\66",
             "",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\67",
             "\1\70",
-            "\1\71",
             "\1\72",
+            "",
             "\1\73",
-            "\1\74",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "",
             "\1\75",
-            "",
-            "",
-            "\1\76",
+            "\1\77\1\uffff\1\76",
             "\1\100",
             "\1\101",
             "\1\102",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\103",
             "\1\104",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\105",
-            "\1\106",
+            "\1\107",
             "",
-            "",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
             "\1\110",
             "\1\111",
             "\1\112",
             "\1\113",
             "\1\114",
             "\1\115",
-            "",
-            "\1\116",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
             "\1\117",
+            "",
+            "",
             "\1\120",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\121",
             "\1\122",
             "\1\123",
             "\1\124",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\125",
             "\1\126",
             "",
             "\1\127",
-            "\1\130",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
-            "",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\131",
             "\1\132",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\133",
             "\1\134",
-            "",
             "\1\135",
-            "",
             "\1\136",
             "\1\137",
+            "",
             "\1\140",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
-            "\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+            "\1\141",
+            "\1\142",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\144",
+            "\1\145",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\147",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\151",
+            "",
+            "\1\152",
+            "\1\153",
+            "",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "",
+            "\1\155",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\1\157",
+            "",
+            "\1\160",
+            "",
+            "\1\161",
+            "\1\162",
+            "\1\163",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
+            "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
             "",
             ""
     };
@@ -1234,7 +1424,7 @@ public class InternalPlantUMLLexer extends Lexer {
             this.transition = DFA10_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | RULE_STRING | RULE_ID | RULE_INT | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | RULE_STRING | RULE_ID | RULE_INT | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -1244,57 +1434,67 @@ public class InternalPlantUMLLexer extends Lexer {
                         int LA10_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA10_0=='a') ) {s = 1;}
+                        if ( (LA10_0=='-') ) {s = 1;}
 
-                        else if ( (LA10_0=='b') ) {s = 2;}
+                        else if ( (LA10_0=='<') ) {s = 2;}
 
-                        else if ( (LA10_0=='c') ) {s = 3;}
+                        else if ( (LA10_0=='a') ) {s = 3;}
 
-                        else if ( (LA10_0=='e') ) {s = 4;}
+                        else if ( (LA10_0=='b') ) {s = 4;}
 
-                        else if ( (LA10_0=='d') ) {s = 5;}
+                        else if ( (LA10_0=='c') ) {s = 5;}
 
-                        else if ( (LA10_0=='p') ) {s = 6;}
+                        else if ( (LA10_0=='e') ) {s = 6;}
 
-                        else if ( (LA10_0=='-') ) {s = 7;}
+                        else if ( (LA10_0=='d') ) {s = 7;}
 
-                        else if ( (LA10_0=='<') ) {s = 8;}
+                        else if ( (LA10_0=='p') ) {s = 8;}
 
                         else if ( (LA10_0=='@') ) {s = 9;}
 
-                        else if ( (LA10_0=='\"') ) {s = 10;}
+                        else if ( (LA10_0=='[') ) {s = 10;}
 
-                        else if ( (LA10_0==':') ) {s = 11;}
+                        else if ( (LA10_0==']') ) {s = 11;}
 
-                        else if ( (LA10_0=='(') ) {s = 12;}
+                        else if ( (LA10_0==':') ) {s = 12;}
 
-                        else if ( (LA10_0==')') ) {s = 13;}
+                        else if ( (LA10_0=='r') ) {s = 13;}
 
-                        else if ( (LA10_0==',') ) {s = 14;}
+                        else if ( (LA10_0=='s') ) {s = 14;}
 
-                        else if ( (LA10_0=='\'') ) {s = 15;}
+                        else if ( (LA10_0=='\"') ) {s = 15;}
 
-                        else if ( (LA10_0=='^') ) {s = 16;}
+                        else if ( (LA10_0=='(') ) {s = 16;}
 
-                        else if ( ((LA10_0>='A' && LA10_0<='Z')||LA10_0=='_'||(LA10_0>='f' && LA10_0<='o')||(LA10_0>='q' && LA10_0<='z')) ) {s = 17;}
+                        else if ( (LA10_0==')') ) {s = 17;}
 
-                        else if ( ((LA10_0>='0' && LA10_0<='9')) ) {s = 18;}
+                        else if ( (LA10_0==',') ) {s = 18;}
 
-                        else if ( (LA10_0=='/') ) {s = 19;}
+                        else if ( (LA10_0=='=') ) {s = 19;}
 
-                        else if ( ((LA10_0>='\t' && LA10_0<='\n')||LA10_0=='\r'||LA10_0==' ') ) {s = 20;}
+                        else if ( (LA10_0=='\'') ) {s = 20;}
 
-                        else if ( ((LA10_0>='\u0000' && LA10_0<='\b')||(LA10_0>='\u000B' && LA10_0<='\f')||(LA10_0>='\u000E' && LA10_0<='\u001F')||LA10_0=='!'||(LA10_0>='#' && LA10_0<='&')||(LA10_0>='*' && LA10_0<='+')||LA10_0=='.'||LA10_0==';'||(LA10_0>='=' && LA10_0<='?')||(LA10_0>='[' && LA10_0<=']')||LA10_0=='`'||(LA10_0>='{' && LA10_0<='\uFFFF')) ) {s = 21;}
+                        else if ( (LA10_0=='^') ) {s = 21;}
+
+                        else if ( ((LA10_0>='A' && LA10_0<='Z')||LA10_0=='_'||(LA10_0>='f' && LA10_0<='o')||LA10_0=='q'||(LA10_0>='t' && LA10_0<='z')) ) {s = 22;}
+
+                        else if ( ((LA10_0>='0' && LA10_0<='9')) ) {s = 23;}
+
+                        else if ( (LA10_0=='/') ) {s = 24;}
+
+                        else if ( ((LA10_0>='\t' && LA10_0<='\n')||LA10_0=='\r'||LA10_0==' ') ) {s = 25;}
+
+                        else if ( ((LA10_0>='\u0000' && LA10_0<='\b')||(LA10_0>='\u000B' && LA10_0<='\f')||(LA10_0>='\u000E' && LA10_0<='\u001F')||LA10_0=='!'||(LA10_0>='#' && LA10_0<='&')||(LA10_0>='*' && LA10_0<='+')||LA10_0=='.'||LA10_0==';'||(LA10_0>='>' && LA10_0<='?')||LA10_0=='\\'||LA10_0=='`'||(LA10_0>='{' && LA10_0<='\uFFFF')) ) {s = 26;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA10_15 = input.LA(1);
+                        int LA10_20 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA10_15>='\u0000' && LA10_15<='\uFFFF')) ) {s = 40;}
+                        if ( ((LA10_20>='\u0000' && LA10_20<='\uFFFF')) ) {s = 51;}
 
-                        else s = 21;
+                        else s = 26;
 
                         if ( s>=0 ) return s;
                         break;

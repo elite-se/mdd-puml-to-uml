@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_sPdS0NTlEeuro4h0vUA0TQ" name="Test">
-  <packagedElement xmi:type="uml:Interaction" xmi:id="_sPdS0dTlEeuro4h0vUA0TQ">
-    <lifeline xmi:id="_sPdS0tTlEeuro4h0vUA0TQ" name="Bob" coveredBy="_sPdS1NTlEeuro4h0vUA0TQ _sPdS19TlEeuro4h0vUA0TQ"/>
-    <lifeline xmi:id="_sPdS09TlEeuro4h0vUA0TQ" name="Alice" coveredBy="_sPdS1dTlEeuro4h0vUA0TQ _sPdS1tTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1NTlEeuro4h0vUA0TQ" covered="_sPdS0tTlEeuro4h0vUA0TQ" message="_sPd54NTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1dTlEeuro4h0vUA0TQ" covered="_sPdS09TlEeuro4h0vUA0TQ" message="_sPd54NTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS1tTlEeuro4h0vUA0TQ" covered="_sPdS09TlEeuro4h0vUA0TQ" message="_sPd54dTlEeuro4h0vUA0TQ"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sPdS19TlEeuro4h0vUA0TQ" covered="_sPdS0tTlEeuro4h0vUA0TQ" message="_sPd54dTlEeuro4h0vUA0TQ"/>
-    <message xmi:id="_sPd54NTlEeuro4h0vUA0TQ" receiveEvent="_sPdS1dTlEeuro4h0vUA0TQ" sendEvent="_sPdS1NTlEeuro4h0vUA0TQ"/>
-    <message xmi:id="_sPd54dTlEeuro4h0vUA0TQ" messageSort="reply" receiveEvent="_sPdS19TlEeuro4h0vUA0TQ" sendEvent="_sPdS1tTlEeuro4h0vUA0TQ"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Pa84sNqjEeumzfJcYGI7BQ" name="Test">
+  <packagedElement xmi:type="uml:Interaction" xmi:id="_Pa84sdqjEeumzfJcYGI7BQ">
+    <lifeline xmi:id="_Pa84stqjEeumzfJcYGI7BQ" name="Alice" coveredBy="_Pa84ttqjEeumzfJcYGI7BQ"/>
+    <lifeline xmi:id="_Pa84s9qjEeumzfJcYGI7BQ" name=": Test"/>
+    <lifeline xmi:id="_Pa84tNqjEeumzfJcYGI7BQ" name="Bob" coveredBy="_Pa84tdqjEeumzfJcYGI7BQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Pa84tdqjEeumzfJcYGI7BQ" covered="_Pa84tNqjEeumzfJcYGI7BQ" message="_Pa84t9qjEeumzfJcYGI7BQ"/>
+    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_Pa84ttqjEeumzfJcYGI7BQ" covered="_Pa84stqjEeumzfJcYGI7BQ" message="_Pa84t9qjEeumzfJcYGI7BQ"/>
+    <message xmi:id="_Pa84t9qjEeumzfJcYGI7BQ" receiveEvent="_Pa84ttqjEeumzfJcYGI7BQ" sendEvent="_Pa84tdqjEeumzfJcYGI7BQ"/>
   </packagedElement>
 </uml:Model>

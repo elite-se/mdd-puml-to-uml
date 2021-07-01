@@ -38,9 +38,15 @@ Workflow {
 				generateStub = false
 			}
 			validator = {
+				generateStub = true
+				generateXtendStub = true
 				// composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 				// Generates checks for @Deprecated grammar annotations, an IssueProvider and a corresponding PropertyPage
 				generateDeprecationValidation = true
+			}
+			quickFixProvider = {
+				generateStub = true
+				generateXtendStub = true
 			}
 			generator = {
 				generateXtendStub = true

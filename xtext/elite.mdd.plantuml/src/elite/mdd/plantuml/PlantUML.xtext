@@ -15,7 +15,22 @@ ParticipantDefinition:
 	shape=ParticipantShape participant=Participant;
 	
 Participant:
+/*<<<<<<< HEAD
 	NamedParticipant | UnnamedParticipant | AnonymousParticipant |{Participant} name = 'self' ;
+=======*/
+	(label=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? 'as' name=ID)
+	| (name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?);	
+	
+/*	
+Participant:
+	NamedParticipant
+	| UnnamedParticipant
+	| AnonymousParticipant
+	| QuotedNamedParticipant
+	| QuotedUnnamedParticipant
+	| QuotedAnonymousParticipant
+	;
+>>>>>>> cffe249 (✨ New Stuff)
 	
 NamedParticipant returns Participant:
 	{Participant} '"' label=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?
@@ -25,14 +40,31 @@ NamedParticipant returns Participant:
 UnnamedParticipant returns Participant:
 	{Participant} '"'name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? '"'
 ;
+<<<<<<< HEAD
 AnonymousParticipant returns Participant:
 	{Participant} '":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' 
+=======
+
+AnonymousParticipant:
+	':' type = ID ('ref' interactionIdent=ID ('strict')?)? ('as' name=ID)?
+>>>>>>> cffe249 (✨ New Stuff)
 ;
 
 
+<<<<<<< HEAD
 ParticipantMention:
 	ID | ':' ID
+=======
+QuotedUnnamedParticipant:
+	'"'name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? '"'
 ;
+
+QuotedAnonymousParticipant:
+	'":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' ('as' name=ID)? 
+>>>>>>> cffe249 (✨ New Stuff)
+;
+* 
+*/
 	
 enum ParticipantShape:
 	ACTOR='actor' 
@@ -50,7 +82,7 @@ MessageDefinition:
 	| ReplyMessageDefinition;
 	
 RequestMessageDefinition:
-	(('"')? sender=[Participant|ParticipantMention] ('"')? arrow=(RightRequest) ('"')? receiver=[Participant] ('"')?) (':' message=RequestMessage)
+	(('"')? sender=[Participant/*|ParticipantMention*/] ('"')? arrow=(RightRequest) ('"')? receiver=[Participant] ('"')?) (':' message=RequestMessage)
 	| (('"')?receiver=[Participant]('"')? arrow=(LeftRequest) ('"')?sender=[Participant]('"')?) (':' message=RequestMessage);
 	
 ReplyMessageDefinition:

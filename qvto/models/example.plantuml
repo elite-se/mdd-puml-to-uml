@@ -1,6 +1,6 @@
 @startuml
-participant "Bob"
-participant "Alice"
-"Bob" -> "Alice" : test
-"Alice" -->> "Bob" : 'blub'
+participant Bob as bob
+participant Alice
+bob -> Alice : test
+"Alice" -->> "bob" : 'blub'
 @enduml

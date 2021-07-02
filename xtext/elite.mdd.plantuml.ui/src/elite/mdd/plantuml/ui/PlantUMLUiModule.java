@@ -4,13 +4,20 @@
 package elite.mdd.plantuml.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 
 /**
  * Use this class to register components to be used within the Eclipse IDE.
  */
 public class PlantUMLUiModule extends AbstractPlantUMLUiModule {
+	
+	
 
 	public PlantUMLUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public Class<? extends XtextEditor> bindXtextEditor() {
+		return PlantUMLEditor.class;
 	}
 }

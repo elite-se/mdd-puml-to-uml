@@ -55,8 +55,7 @@ ReplyMessage:
 	;
 	
 ReplyMessageArgument:
-	name=ID ":" type=ID
-	| name=ID "=" type=ID (":" value=Value)? 
+	name=ID ("=" outParamName=ID)? ":" value=Value 
 	;
 	
 Value:

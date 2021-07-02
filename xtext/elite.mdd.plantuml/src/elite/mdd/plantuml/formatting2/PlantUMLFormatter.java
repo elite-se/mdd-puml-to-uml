@@ -4,8 +4,24 @@
 package elite.mdd.plantuml.formatting2;
 
 import elite.mdd.plantuml.plantUML.Diagram;
+import elite.mdd.plantuml.plantUML.FullQuotedReplyMessageDefinition;
+import elite.mdd.plantuml.plantUML.FullQuotedRequestMessageDefinition;
+import elite.mdd.plantuml.plantUML.LeftQuotedReplyMessageDefinition;
+import elite.mdd.plantuml.plantUML.LeftQuotedRequestMessageDefinition;
+import elite.mdd.plantuml.plantUML.MessageDefinition;
 import elite.mdd.plantuml.plantUML.Participant;
 import elite.mdd.plantuml.plantUML.ParticipantDefinition;
+import elite.mdd.plantuml.plantUML.QuotedAnonymousParticipant;
+import elite.mdd.plantuml.plantUML.QuotedNamedParticipant;
+import elite.mdd.plantuml.plantUML.QuotedUnnamedParticipant;
+import elite.mdd.plantuml.plantUML.ReplyMessage;
+import elite.mdd.plantuml.plantUML.ReplyMessageArgument;
+import elite.mdd.plantuml.plantUML.ReplyMessageDefinition;
+import elite.mdd.plantuml.plantUML.RequestMessage;
+import elite.mdd.plantuml.plantUML.RequestMessageArgument;
+import elite.mdd.plantuml.plantUML.RequestMessageDefinition;
+import elite.mdd.plantuml.plantUML.RightQuotedReplyMessageDefinition;
+import elite.mdd.plantuml.plantUML.RightQuotedRequestMessageDefinition;
 import elite.mdd.plantuml.plantUML.SequenceElement;
 
 import org.eclipse.xtext.AbstractElement;
@@ -22,28 +38,107 @@ public class PlantUMLFormatter extends AbstractJavaFormatter {
 	// See https://hub.packtpub.com/customizing-xtext-components/
 	// See https://stackoverflow.com/questions/50904789/formatting-string-content-xtext-2-14
 	
-	
-	public void configureFormatting(FormattingConfig c) {
-		c.setNoSpace().around(null);;
-	}
-
 	protected void format(Diagram diagram, IFormattableDocument doc) {
-		// TODO: format HiddenRegions around keywords, attributes, cross references, etc.	
 		for (SequenceElement sequenceElement : diagram.getElements()) {
 			doc.prepend(sequenceElement, this::newLine);
 			doc.format(sequenceElement);
 			doc.append(sequenceElement, this::newLine);
 		}
 	}
+	
+	protected void format(RequestMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(FullQuotedRequestMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(LeftQuotedRequestMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(RightQuotedRequestMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(RequestMessage message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.REQUEST_MESSAGE__NAME), this::noSpace);
+		for (RequestMessageArgument argument: message.getArguments()) {
+			doc.append(argument, this::noSpace);
+			doc.format(argument);
+		}
+	}
+	
+	protected void format(RequestMessageArgument argument, IFormattableDocument doc) {
+		doc.surround(regionFor(argument).feature(Literals.REQUEST_MESSAGE_ARGUMENT__NAME), this::noSpace);
+	}
+	
+	protected void format(ReplyMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(FullQuotedReplyMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(LeftQuotedReplyMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(RightQuotedReplyMessageDefinition message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__SENDER), this::noSpace);
+		doc.surround(regionFor(message).feature(Literals.MESSAGE_DEFINITION__RECEIVER), this::noSpace);
+		doc.format(message.getMessage());
+	}
+	
+	protected void format(ReplyMessage message, IFormattableDocument doc) {
+		doc.surround(regionFor(message).feature(Literals.REPLY_MESSAGE__NAME), this::noSpace);
+		for (ReplyMessageArgument argument: message.getArguments()) {
+			doc.append(argument, this::noSpace);
+			doc.format(argument);
+		}
+	}
+	
+	protected void format(ReplyMessageArgument argument, IFormattableDocument doc) {
+		doc.surround(regionFor(argument).feature(Literals.REPLY_MESSAGE_ARGUMENT__NAME), this::noSpace);
+	}
+	
+	
+	protected void format(QuotedNamedParticipant participant, IFormattableDocument doc) {
+		doc.surround(regionFor(participant).feature(Literals.QUOTED_NAMED_PARTICIPANT__LABEL), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.QUOTED_NAMED_PARTICIPANT__NAME), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.QUOTED_NAMED_PARTICIPANT__SELECTOR), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__TYPE), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__INTERACTION_IDENT), this::noSpace);
+	}
+	
+	protected void format(QuotedUnnamedParticipant participant, IFormattableDocument doc) {
+		doc.surround(regionFor(participant).feature(Literals.QUOTED_UNNAMED_PARTICIPANT__NAME), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.QUOTED_UNNAMED_PARTICIPANT__SELECTOR), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__TYPE), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__INTERACTION_IDENT), this::noSpace);
+	}
+	
+	protected void format(QuotedAnonymousParticipant participant, IFormattableDocument doc) {
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__TYPE), this::noSpace);
+		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__INTERACTION_IDENT), this::noSpace);
+	}
+	
+	
 
-	protected void format(ParticipantDefinition participantDefinition, IFormattableDocument doc) {
-		doc.surround(regionFor(participantDefinition).feature(Literals.PARTICIPANT__NAME), this::noSpace);
-		doc.format(participantDefinition.getParticipant());
-	}
-	
-	protected void format(Participant participant, IFormattableDocument doc) {
-		doc.surround(regionFor(participant).feature(Literals.PARTICIPANT__NAME), this::noSpace);
-	}
-	
-	// TODO: implement for RequestMessageDefinition
 }

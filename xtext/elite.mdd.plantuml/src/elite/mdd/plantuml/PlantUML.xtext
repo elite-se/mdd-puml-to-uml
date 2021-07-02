@@ -28,7 +28,9 @@ NamedParticipant:
 ;
 
 UnnamedParticipant:
-	name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?
+	// name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?
+	// Because of some weird problems in the serializer, static had to be removed in the unqouted version
+	name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID)?
 ;
 AnonymousParticipant:
 	':' type = ID ('ref' interactionIdent=ID ('strict')?)? 
@@ -62,20 +64,43 @@ enum ParticipantShape:
 MessageDefinition:
 	RequestMessageDefinition
 	| ReplyMessageDefinition
-	| QuotedRequestMessageDefinition
-	| QuotedReplyMessageDefinition
+	| FullQuotedRequestMessageDefinition
+	| FullQuotedReplyMessageDefinition
+	| LeftQuotedRequestMessageDefinition
+	| LeftQuotedReplyMessageDefinition
+	| RightQuotedRequestMessageDefinition
+	| RightQuotedReplyMessageDefinition
 	;
 	
-QuotedRequestMessageDefinition:
+FullQuotedRequestMessageDefinition:
 	('"' sender=[Participant] '"' arrow=(RightRequest) '"' receiver=[Participant] '"') (':' message=RequestMessage)
 	| ('"'receiver=[Participant]'"' arrow=(LeftRequest) '"' sender=[Participant] '"') (':' message=RequestMessage)
 	;
 	
-QuotedReplyMessageDefinition:
+FullQuotedReplyMessageDefinition:
 	('"' sender=[Participant] '"' arrow=RightReply '"' receiver=[Participant] '"') (':' message=ReplyMessage)
 	| ('"' receiver=[Participant] '"' arrow=LeftReply '"' sender=[Participant] '"') (':' message=ReplyMessage)
 	;
 	
+LeftQuotedRequestMessageDefinition:
+	('"' sender=[Participant] '"' arrow=(RightRequest) receiver=[Participant]) (':' message=RequestMessage)
+	| ('"' receiver=[Participant] '"' arrow=(LeftRequest) sender=[Participant]) (':' message=RequestMessage)
+	;
+	
+LeftQuotedReplyMessageDefinition:
+	('"' sender=[Participant] '"' arrow=RightReply  receiver=[Participant] ) (':' message=ReplyMessage)
+	| ('"' receiver=[Participant] '"' arrow=LeftReply sender=[Participant] ) (':' message=ReplyMessage)
+	;
+
+RightQuotedRequestMessageDefinition:
+	(sender=[Participant] arrow=(RightRequest) '"' receiver=[Participant] '"') (':' message=RequestMessage)
+	| (receiver=[Participant] arrow=(LeftRequest) '"' sender=[Participant] '"') (':' message=RequestMessage)
+	;
+	
+RightQuotedReplyMessageDefinition:
+	(sender=[Participant] arrow=RightReply '"' receiver=[Participant] '"') (':' message=ReplyMessage)
+	| (receiver=[Participant] arrow=LeftReply '"' sender=[Participant] '"') (':' message=ReplyMessage)
+	;
 	
 RequestMessageDefinition:
 	(sender=[Participant] arrow=(RightRequest) receiver=[Participant]) (':' message=RequestMessage)

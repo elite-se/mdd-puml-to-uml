@@ -7,7 +7,8 @@ Diagram:
 	
 SequenceElement:
 	ParticipantDefinition
-	| MessageDefinition;
+	| MessageDefinition
+	| TitleDefinition;
 	
 // Participants
 	
@@ -104,6 +105,12 @@ enum RightReply returns ReplyArrow:
 enum LeftReply returns ReplyArrow:
 	LEFT_REPLY='<<--'
 ;
+
+// Title
+
+TitleDefinition:
+	'title' (('"' (titleParts += ID)+ '"') | (titleParts += ID)+);
+
 	
 // TODO: Handle Strings correctly
 @Override 

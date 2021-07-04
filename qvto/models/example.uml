@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_uK6bANzJEeuLjsMb1ekX7A" name="Weather APIis great">
-  <packagedElement xmi:type="uml:Interaction" xmi:id="_uK6bAdzJEeuLjsMb1ekX7A">
-    <lifeline xmi:id="_uK6bAtzJEeuLjsMb1ekX7A" name="anonymusWeatherAPI1" coveredBy="_uK6bCNzJEeuLjsMb1ekX7A _uK6bCdzJEeuLjsMb1ekX7A"/>
-    <lifeline xmi:id="_uK6bA9zJEeuLjsMb1ekX7A" name="node0" coveredBy="_uK6bBtzJEeuLjsMb1ekX7A _uK6bB9zJEeuLjsMb1ekX7A _uK6bCtzJEeuLjsMb1ekX7A _uK6bC9zJEeuLjsMb1ekX7A"/>
-    <lifeline xmi:id="_uK6bBNzJEeuLjsMb1ekX7A" name="Bob" coveredBy="_uK6bBdzJEeuLjsMb1ekX7A _uK6bDNzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bBdzJEeuLjsMb1ekX7A" covered="_uK6bBNzJEeuLjsMb1ekX7A" message="_uK6bDdzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bBtzJEeuLjsMb1ekX7A" covered="_uK6bA9zJEeuLjsMb1ekX7A" message="_uK6bDdzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bB9zJEeuLjsMb1ekX7A" covered="_uK6bA9zJEeuLjsMb1ekX7A" message="_uK6bDtzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bCNzJEeuLjsMb1ekX7A" covered="_uK6bAtzJEeuLjsMb1ekX7A" message="_uK6bDtzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bCdzJEeuLjsMb1ekX7A" covered="_uK6bAtzJEeuLjsMb1ekX7A" message="_uK6bD9zJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bCtzJEeuLjsMb1ekX7A" covered="_uK6bA9zJEeuLjsMb1ekX7A" message="_uK6bD9zJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bC9zJEeuLjsMb1ekX7A" covered="_uK6bA9zJEeuLjsMb1ekX7A" message="_uK6bENzJEeuLjsMb1ekX7A"/>
-    <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_uK6bDNzJEeuLjsMb1ekX7A" covered="_uK6bBNzJEeuLjsMb1ekX7A" message="_uK6bENzJEeuLjsMb1ekX7A"/>
-    <message xmi:id="_uK6bDdzJEeuLjsMb1ekX7A" receiveEvent="_uK6bBtzJEeuLjsMb1ekX7A" sendEvent="_uK6bBdzJEeuLjsMb1ekX7A"/>
-    <message xmi:id="_uK6bDtzJEeuLjsMb1ekX7A" receiveEvent="_uK6bCNzJEeuLjsMb1ekX7A" sendEvent="_uK6bB9zJEeuLjsMb1ekX7A"/>
-    <message xmi:id="_uK6bD9zJEeuLjsMb1ekX7A" messageSort="reply" receiveEvent="_uK6bCtzJEeuLjsMb1ekX7A" sendEvent="_uK6bCdzJEeuLjsMb1ekX7A"/>
-    <message xmi:id="_uK6bENzJEeuLjsMb1ekX7A" messageSort="reply" receiveEvent="_uK6bDNzJEeuLjsMb1ekX7A" sendEvent="_uK6bC9zJEeuLjsMb1ekX7A"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_qpTfANzVEeuLjsMb1ekX7A" name="Weather API is great">
+  <packagedElement xmi:type="uml:Package" xmi:id="_qpUGENzVEeuLjsMb1ekX7A" name="Static">
+    <packagedElement xmi:type="uml:Class" xmi:id="_qpUGEdzVEeuLjsMb1ekX7A" name="AnonymusWeatherAPI1"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qpUGEtzVEeuLjsMb1ekX7A" name="Bob"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qpUGE9zVEeuLjsMb1ekX7A" name="Node0"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Collaboration" xmi:id="_qpUGFNzVEeuLjsMb1ekX7A" name="Weather API is great" classifierBehavior="_qpUGGNzVEeuLjsMb1ekX7A" collaborationRole="_qpUGFdzVEeuLjsMb1ekX7A _qpUGFtzVEeuLjsMb1ekX7A _qpUGF9zVEeuLjsMb1ekX7A">
+    <ownedAttribute xmi:id="_qpUGFdzVEeuLjsMb1ekX7A" name="bob" type="_qpUGEtzVEeuLjsMb1ekX7A"/>
+    <ownedAttribute xmi:id="_qpUGFtzVEeuLjsMb1ekX7A" name="node0" type="_qpUGE9zVEeuLjsMb1ekX7A"/>
+    <ownedAttribute xmi:id="_qpUGF9zVEeuLjsMb1ekX7A" name="anonymusweatherapi1" type="_qpUGEdzVEeuLjsMb1ekX7A"/>
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_qpUGGNzVEeuLjsMb1ekX7A" name="Weather API is great">
+      <lifeline xmi:id="_qpUGGdzVEeuLjsMb1ekX7A" name="node0" represents="_qpUGFtzVEeuLjsMb1ekX7A" coveredBy="_qpUGHdzVEeuLjsMb1ekX7A _qpUGHtzVEeuLjsMb1ekX7A _qpUGIdzVEeuLjsMb1ekX7A _qpUGItzVEeuLjsMb1ekX7A"/>
+      <lifeline xmi:id="_qpUGGtzVEeuLjsMb1ekX7A" name="anonymusWeatherAPI1" represents="_qpUGF9zVEeuLjsMb1ekX7A" coveredBy="_qpUGH9zVEeuLjsMb1ekX7A _qpUGINzVEeuLjsMb1ekX7A"/>
+      <lifeline xmi:id="_qpUGG9zVEeuLjsMb1ekX7A" name="Bob" represents="_qpUGFdzVEeuLjsMb1ekX7A" coveredBy="_qpUGHNzVEeuLjsMb1ekX7A _qpUGI9zVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGHNzVEeuLjsMb1ekX7A" name="getWeather_send" covered="_qpUGG9zVEeuLjsMb1ekX7A" message="_qpUGJNzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGHdzVEeuLjsMb1ekX7A" name="getWeather_receive" covered="_qpUGGdzVEeuLjsMb1ekX7A" message="_qpUGJNzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGHtzVEeuLjsMb1ekX7A" name="getWeatherData_send" covered="_qpUGGdzVEeuLjsMb1ekX7A" message="_qpUGJdzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGH9zVEeuLjsMb1ekX7A" name="getWeatherData_receive" covered="_qpUGGtzVEeuLjsMb1ekX7A" message="_qpUGJdzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGINzVEeuLjsMb1ekX7A" name="test_send" covered="_qpUGGtzVEeuLjsMb1ekX7A" message="_qpUGJtzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGIdzVEeuLjsMb1ekX7A" name="test_receive" covered="_qpUGGdzVEeuLjsMb1ekX7A" message="_qpUGJtzVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGItzVEeuLjsMb1ekX7A" name="reply_send" covered="_qpUGGdzVEeuLjsMb1ekX7A" message="_qpUGJ9zVEeuLjsMb1ekX7A"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_qpUGI9zVEeuLjsMb1ekX7A" name="reply_receive" covered="_qpUGG9zVEeuLjsMb1ekX7A" message="_qpUGJ9zVEeuLjsMb1ekX7A"/>
+      <message xmi:id="_qpUGJNzVEeuLjsMb1ekX7A" name="getWeather" receiveEvent="_qpUGHdzVEeuLjsMb1ekX7A" sendEvent="_qpUGHNzVEeuLjsMb1ekX7A"/>
+      <message xmi:id="_qpUGJdzVEeuLjsMb1ekX7A" name="getWeatherData" receiveEvent="_qpUGH9zVEeuLjsMb1ekX7A" sendEvent="_qpUGHtzVEeuLjsMb1ekX7A"/>
+      <message xmi:id="_qpUGJtzVEeuLjsMb1ekX7A" name="test" messageSort="reply" receiveEvent="_qpUGIdzVEeuLjsMb1ekX7A" sendEvent="_qpUGINzVEeuLjsMb1ekX7A"/>
+      <message xmi:id="_qpUGJ9zVEeuLjsMb1ekX7A" name="reply" messageSort="reply" receiveEvent="_qpUGI9zVEeuLjsMb1ekX7A" sendEvent="_qpUGItzVEeuLjsMb1ekX7A"/>
+    </ownedBehavior>
   </packagedElement>
 </uml:Model>

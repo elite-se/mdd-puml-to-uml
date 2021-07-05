@@ -3,15 +3,30 @@
  */
 package elite.mdd.plantuml;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceDescriptionsProvider;
+import org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions;
+
+import com.google.inject.Binder;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PlantUMLRuntimeModule extends AbstractPlantUMLRuntimeModule {
+	
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return PlantUMLValueConverterService.class;
+	}
+	
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
 		return PlantUMLQualifiedNameProvider.class;
 	}
+	
+
 }

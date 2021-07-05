@@ -2,7 +2,6 @@ package elite.mdd.plantuml;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
-import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 
 import elite.mdd.plantuml.plantUML.Participant;

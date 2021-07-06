@@ -4,7 +4,14 @@
 package elite.mdd.plantuml.ui.labeling;
 
 import com.google.inject.Inject;
+
+import elite.mdd.plantuml.plantUML.ParticipantDefinition;
+import elite.mdd.plantuml.plantUML.ReplyMessageDefinition;
+import elite.mdd.plantuml.plantUML.RequestArrow;
+import elite.mdd.plantuml.plantUML.RequestMessageDefinition;
+
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider;
 
 /**

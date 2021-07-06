@@ -1,10 +1,11 @@
 @startuml
 title Weather API
+title is great
 actor "Bob : User" as Bob
 participant "node0 : WWebserver" as node0
 participant "weather : WeatherAPI" as anonymusWeatherAPI1
 Bob -> node0: getWeather(location='Augsburg')
 node0 -> anonymusWeatherAPI1: getWeatherData(long=48360455, lat=10901283)
-node0 <<-- anonymusWeatherAPI1: 'sunny'
-Bob <<-- node0: 'sunny'
+node0 <<-- anonymusWeatherAPI1: test
+Bob <<-- node0: reply
 @enduml

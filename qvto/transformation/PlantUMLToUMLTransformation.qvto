@@ -6,24 +6,50 @@ transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML)
 main() {
 	object UML::Model {
 		var diagrams = source.rootObjects()[Diagram];
-		name := diagrams -> iterate( i: Diagram; newName : String = '' | 
-			newName 
-			+ (if i.elements[TitleDefinition]->isEmpty() then 'Unnamed Model' else '' endif) 
-			+ i.elements[TitleDefinition] -> iterate ( t: TitleDefinition; newTitle : String = '' |
-				newTitle + t.titleParts -> iterate ( tp: String; wholeTitle : String = '' |
-					wholeTitle 
-					+ (if wholeTitle = '' then '' else ' ' endif)
-					+ tp
-				)
-			)
-		);
-		packagedElement := diagrams -> map toInteraction();
+		
+		packagedElement += object UML::Package {
+			name := 'Static';
+			packagedElement += diagrams.elements[ParticipantDefinition].participant -> map toClass();
+		};
+		
+		packagedElement += diagrams -> map toCollaboration();
+			
+		name := diagrams -> iterate( i: Diagram; newName : String = '' | newName + i.getName());
 	};
 }
 
-mapping Diagram::toInteraction(): Interaction {
-	lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline();
-	message += self.elements[MessageDefinition] -> map toUMLMessage();
+query Diagram::getName(): String {
+	if (self.elements[TitleDefinition]->isEmpty()) then {
+		return 'Unnamed Model';
+	} endif;
+	return self.elements[TitleDefinition] -> iterate ( t: TitleDefinition; title : String = '' |
+		title
+		+ (if title = '' then '' else ' ' endif)
+		+ t.getTitle()
+	);
+}
+
+query TitleDefinition::getTitle(): String {
+	return self.titleParts -> iterate ( tp: String; title: String = '' |
+		title 
+		+ (if title = '' then '' else ' ' endif)
+		+ tp
+	);
+}
+
+mapping Participant::toClass(): UML::Class {
+	name := self.name.firstToUpper();
+}
+
+mapping Diagram::toCollaboration(): UML::Collaboration {
+	name := self.getName();
+	var interaction = object UML::Interaction {
+		name := self.getName();
+	};
+	classifierBehavior := interaction;
+	ownedBehavior := interaction;
+	interaction.lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline(interaction);
+	interaction.message += self.elements[MessageDefinition] -> map toUMLMessage(interaction);
 }
 
 mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
@@ -31,27 +57,34 @@ mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccuren
 	sendOccurence.message := message;
 }
 
-mapping Participant::toLifeline(): Lifeline {
+mapping Participant::toLifeline(parentInteraction: UML::Interaction): Lifeline {
 	name := self.name;
+	interaction := parentInteraction;
+	var representedProperty := object UML::Property {
+		name := self.name.toLower();
+		type := self.resolveone(UML::Class);
+	};
+	represents := representedProperty;
+	var parentCollaboration = parentInteraction.context.oclAsType(UML::Collaboration); 
+	parentCollaboration.collaborationRole += representedProperty;
+	parentCollaboration.ownedAttribute += representedProperty;
 }
 
-mapping MessageDefinition::toUMLMessage() : UML::Message disjuncts 
+mapping MessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction) : UML::Message disjuncts 
 RequestMessageDefinition::toUMLMessage,
-ReplyMessageDefinition::toUMLMessage {
-	
-}
+ReplyMessageDefinition::toUMLMessage { }
 
-mapping MessageDefinition::senderAndReceiver(): UML::Message {
-	var parentInteraction := self.container().oclAsType(PlantUML::Diagram).resolveone(UML::Interaction);
-	var sendOccurence := object MessageOccurrenceSpecification { 
+mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Interaction): UML::Message {
+	interaction := parentInteraction;
+	var sendOccurence := object MessageOccurrenceSpecification {name := result.name + '_' + 'send'; 
 		message := result;
-		covered := self.sender.resolveone(UML::Lifeline);
-		interaction := parentInteraction;
+		covered := self.sender.late resolveone(UML::Lifeline);
+		enclosingInteraction := parentInteraction;
 	};
 	var receiveOccurence := object MessageOccurrenceSpecification {
 		message := result;
-		covered := self.receiver.resolve(UML::Lifeline);
-		interaction := parentInteraction;
+		covered := self.receiver.late resolveone(UML::Lifeline);
+		enclosingInteraction := parentInteraction;
 	};
 	sendEvent := sendOccurence;
 	receiveEvent := receiveOccurence;
@@ -59,13 +92,19 @@ mapping MessageDefinition::senderAndReceiver(): UML::Message {
 	parentInteraction.fragment += receiveOccurence;
 }
 
-mapping RequestMessageDefinition::toUMLMessage(): UML::Message inherits
+mapping RequestMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
+	name := self.message.name;
+	sendEvent.name := name + '_' + 'send';
+	receiveEvent.name := name + '_' + 'receive';
 	messageSort := MessageSort::synchCall;
 }
 
-mapping ReplyMessageDefinition::toUMLMessage(): UML::Message inherits
+mapping ReplyMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
+	name := self.message.name;
+	sendEvent.name := name + '_' + 'send';
+	receiveEvent.name := name + '_' + 'receive';
 	messageSort := MessageSort::reply;
 }
 

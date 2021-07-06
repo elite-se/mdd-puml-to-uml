@@ -19,13 +19,22 @@ public class PlantUMLLabelProvider extends DefaultEObjectLabelProvider {
 		super(delegate);
 	}
 
-	// Labels and icons can be computed like this:
+	@Inject
+	public IQualifiedNameProvider nameProvider;
 	
-//	String text(Greeting ele) {
-//		return "A greeting to " + ele.getName();
-//	}
-//
-//	String image(Greeting ele) {
-//		return "Greeting.gif";
-//	}
+	
+	String text(ParticipantDefinition participantDefinition) {
+		return nameProvider.getFullyQualifiedName(participantDefinition.getParticipant()) + " : " + participantDefinition.getShape().toString();
+	}
+	
+	String text(RequestMessageDefinition requestMessage) {
+		return ((requestMessage.getArrow().equals(RequestArrow.RIGHT_SYNC) || 
+				requestMessage.getArrow().equals(RequestArrow.LEFT_SYNC)) ? "sync req: " : "async req: ") + 
+				requestMessage.getSender().getName() + " -> " + requestMessage.getReceiver().getName() + 
+				" : " + requestMessage.getMessage().getName();
+	}
+	String text(ReplyMessageDefinition replyMessage) {
+		return "reply: " + replyMessage.getSender().getName() + " -> " + replyMessage.getReceiver().getName() + 
+				" : " + replyMessage.getMessage().getName();
+	}
 }

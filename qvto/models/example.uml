@@ -1,30 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_sx6BgN8KEeuOZ9jn5kg7gA" name="Weather API is great">
-  <packagedElement xmi:type="uml:Package" xmi:id="_sx6Bgd8KEeuOZ9jn5kg7gA" name="Static">
-    <packagedElement xmi:type="uml:Class" xmi:id="_sx6Bgt8KEeuOZ9jn5kg7gA" name="WeatherAPI"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_sx6Bg98KEeuOZ9jn5kg7gA" name="WWebserver"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="_sx6BhN8KEeuOZ9jn5kg7gA" name="User"/>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_wessQN8eEeuOZ9jn5kg7gA" name="Weather API is great">
+  <packagedElement xmi:type="uml:Package" xmi:id="_wessQd8eEeuOZ9jn5kg7gA" name="Static">
+    <packagedElement xmi:type="uml:Class" xmi:id="_wessQt8eEeuOZ9jn5kg7gA" name="User"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_wessQ98eEeuOZ9jn5kg7gA" name="WWebserver">
+      <ownedOperation xmi:id="_wessRN8eEeuOZ9jn5kg7gA" name="getWeather">
+        <ownedParameter xmi:id="_wessRd8eEeuOZ9jn5kg7gA" name="location"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_wessRt8eEeuOZ9jn5kg7gA" name="WeatherAPI">
+      <ownedOperation xmi:id="_wessR98eEeuOZ9jn5kg7gA" name="getWeatherData">
+        <ownedParameter xmi:id="_wessSN8eEeuOZ9jn5kg7gA" name="long"/>
+        <ownedParameter xmi:id="_wessSd8eEeuOZ9jn5kg7gA" name="lat"/>
+      </ownedOperation>
+    </packagedElement>
   </packagedElement>
-  <packagedElement xmi:type="uml:Collaboration" xmi:id="_sx6Bhd8KEeuOZ9jn5kg7gA" name="Weather API is great" classifierBehavior="_sx6Bid8KEeuOZ9jn5kg7gA" collaborationRole="_sx6Bht8KEeuOZ9jn5kg7gA _sx6Bh98KEeuOZ9jn5kg7gA _sx6BiN8KEeuOZ9jn5kg7gA">
-    <ownedAttribute xmi:id="_sx6Bht8KEeuOZ9jn5kg7gA" name="bob" type="_sx6BhN8KEeuOZ9jn5kg7gA"/>
-    <ownedAttribute xmi:id="_sx6Bh98KEeuOZ9jn5kg7gA" name="node0" type="_sx6Bg98KEeuOZ9jn5kg7gA"/>
-    <ownedAttribute xmi:id="_sx6BiN8KEeuOZ9jn5kg7gA" name=":weatherapi" type="_sx6Bgt8KEeuOZ9jn5kg7gA"/>
-    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_sx6Bid8KEeuOZ9jn5kg7gA" name="Weather API is great">
-      <lifeline xmi:id="_sx6Bit8KEeuOZ9jn5kg7gA" name="Bob" represents="_sx6Bht8KEeuOZ9jn5kg7gA" coveredBy="_sx6Bjd8KEeuOZ9jn5kg7gA _sx6Bkd8KEeuOZ9jn5kg7gA _sx6BlN8KEeuOZ9jn5kg7gA"/>
-      <lifeline xmi:id="_sx6Bi98KEeuOZ9jn5kg7gA" name=":WeatherAPI" represents="_sx6BiN8KEeuOZ9jn5kg7gA" coveredBy="_sx6BkN8KEeuOZ9jn5kg7gA"/>
-      <lifeline xmi:id="_sx6BjN8KEeuOZ9jn5kg7gA" name="node0" represents="_sx6Bh98KEeuOZ9jn5kg7gA" coveredBy="_sx6Bjt8KEeuOZ9jn5kg7gA _sx6Bj98KEeuOZ9jn5kg7gA _sx6Bkt8KEeuOZ9jn5kg7gA _sx6Bk98KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bjd8KEeuOZ9jn5kg7gA" name="getWeather_send" covered="_sx6Bit8KEeuOZ9jn5kg7gA" message="_sx6Bld8KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bjt8KEeuOZ9jn5kg7gA" name="getWeather_receive" covered="_sx6BjN8KEeuOZ9jn5kg7gA" message="_sx6Bld8KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bj98KEeuOZ9jn5kg7gA" name="getWeatherData_send" covered="_sx6BjN8KEeuOZ9jn5kg7gA" message="_sx6Blt8KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6BkN8KEeuOZ9jn5kg7gA" name="getWeatherData_receive" covered="_sx6Bi98KEeuOZ9jn5kg7gA" message="_sx6Blt8KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bkd8KEeuOZ9jn5kg7gA" name="test_send" covered="_sx6Bit8KEeuOZ9jn5kg7gA" message="_sx6Bl98KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bkt8KEeuOZ9jn5kg7gA" name="test_receive" covered="_sx6BjN8KEeuOZ9jn5kg7gA" message="_sx6Bl98KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6Bk98KEeuOZ9jn5kg7gA" name="reply_send" covered="_sx6BjN8KEeuOZ9jn5kg7gA" message="_sx6BmN8KEeuOZ9jn5kg7gA"/>
-      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_sx6BlN8KEeuOZ9jn5kg7gA" name="reply_receive" covered="_sx6Bit8KEeuOZ9jn5kg7gA" message="_sx6BmN8KEeuOZ9jn5kg7gA"/>
-      <message xmi:id="_sx6Bld8KEeuOZ9jn5kg7gA" name="getWeather" receiveEvent="_sx6Bjt8KEeuOZ9jn5kg7gA" sendEvent="_sx6Bjd8KEeuOZ9jn5kg7gA"/>
-      <message xmi:id="_sx6Blt8KEeuOZ9jn5kg7gA" name="getWeatherData" receiveEvent="_sx6BkN8KEeuOZ9jn5kg7gA" sendEvent="_sx6Bj98KEeuOZ9jn5kg7gA"/>
-      <message xmi:id="_sx6Bl98KEeuOZ9jn5kg7gA" name="test" messageSort="reply" receiveEvent="_sx6Bkt8KEeuOZ9jn5kg7gA" sendEvent="_sx6Bkd8KEeuOZ9jn5kg7gA"/>
-      <message xmi:id="_sx6BmN8KEeuOZ9jn5kg7gA" name="reply" messageSort="reply" receiveEvent="_sx6BlN8KEeuOZ9jn5kg7gA" sendEvent="_sx6Bk98KEeuOZ9jn5kg7gA"/>
+  <packagedElement xmi:type="uml:Collaboration" xmi:id="_wessSt8eEeuOZ9jn5kg7gA" name="Weather API is great" classifierBehavior="_wessTt8eEeuOZ9jn5kg7gA" collaborationRole="_wessS98eEeuOZ9jn5kg7gA _wessTN8eEeuOZ9jn5kg7gA _wessTd8eEeuOZ9jn5kg7gA">
+    <ownedAttribute xmi:id="_wessS98eEeuOZ9jn5kg7gA" name="bob" type="_wessQt8eEeuOZ9jn5kg7gA"/>
+    <ownedAttribute xmi:id="_wessTN8eEeuOZ9jn5kg7gA" name="node0" type="_wessQ98eEeuOZ9jn5kg7gA"/>
+    <ownedAttribute xmi:id="_wessTd8eEeuOZ9jn5kg7gA" name=":weatherapi" type="_wessRt8eEeuOZ9jn5kg7gA"/>
+    <ownedBehavior xmi:type="uml:Interaction" xmi:id="_wessTt8eEeuOZ9jn5kg7gA" name="Weather API is great">
+      <lifeline xmi:id="_wessT98eEeuOZ9jn5kg7gA" name="node0" represents="_wessTN8eEeuOZ9jn5kg7gA" coveredBy="_wessU98eEeuOZ9jn5kg7gA _wessVN8eEeuOZ9jn5kg7gA _wessV98eEeuOZ9jn5kg7gA _wessWN8eEeuOZ9jn5kg7gA"/>
+      <lifeline xmi:id="_wessUN8eEeuOZ9jn5kg7gA" name="Bob" represents="_wessS98eEeuOZ9jn5kg7gA" coveredBy="_wessUt8eEeuOZ9jn5kg7gA _wessWd8eEeuOZ9jn5kg7gA"/>
+      <lifeline xmi:id="_wessUd8eEeuOZ9jn5kg7gA" name=":WeatherAPI" represents="_wessTd8eEeuOZ9jn5kg7gA" coveredBy="_wessVd8eEeuOZ9jn5kg7gA _wessVt8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessUt8eEeuOZ9jn5kg7gA" name="getWeather_send" covered="_wessUN8eEeuOZ9jn5kg7gA" message="_wessWt8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessU98eEeuOZ9jn5kg7gA" name="getWeather_receive" covered="_wessT98eEeuOZ9jn5kg7gA" message="_wessWt8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessVN8eEeuOZ9jn5kg7gA" name="getWeatherData_send" covered="_wessT98eEeuOZ9jn5kg7gA" message="_wessXN8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessVd8eEeuOZ9jn5kg7gA" name="getWeatherData_receive" covered="_wessUd8eEeuOZ9jn5kg7gA" message="_wessXN8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessVt8eEeuOZ9jn5kg7gA" name="getWeatherData_send" covered="_wessUd8eEeuOZ9jn5kg7gA" message="_wessX98eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessV98eEeuOZ9jn5kg7gA" name="getWeatherData_receive" covered="_wessT98eEeuOZ9jn5kg7gA" message="_wessX98eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessWN8eEeuOZ9jn5kg7gA" name="message_send" covered="_wessT98eEeuOZ9jn5kg7gA" message="_wessYN8eEeuOZ9jn5kg7gA"/>
+      <fragment xmi:type="uml:MessageOccurrenceSpecification" xmi:id="_wessWd8eEeuOZ9jn5kg7gA" name="message_receive" covered="_wessUN8eEeuOZ9jn5kg7gA" message="_wessYN8eEeuOZ9jn5kg7gA"/>
+      <message xmi:id="_wessWt8eEeuOZ9jn5kg7gA" name="getWeather" receiveEvent="_wessU98eEeuOZ9jn5kg7gA" sendEvent="_wessUt8eEeuOZ9jn5kg7gA">
+        <argument xmi:type="uml:LiteralInteger" xmi:id="_wessW98eEeuOZ9jn5kg7gA" value="5"/>
+      </message>
+      <message xmi:id="_wessXN8eEeuOZ9jn5kg7gA" name="getWeatherData" receiveEvent="_wessVd8eEeuOZ9jn5kg7gA" sendEvent="_wessVN8eEeuOZ9jn5kg7gA">
+        <argument xmi:type="uml:LiteralInteger" xmi:id="_wessXd8eEeuOZ9jn5kg7gA" value="5"/>
+        <argument xmi:type="uml:LiteralInteger" xmi:id="_wessXt8eEeuOZ9jn5kg7gA" value="5"/>
+      </message>
+      <message xmi:id="_wessX98eEeuOZ9jn5kg7gA" name="getWeatherData" messageSort="reply" receiveEvent="_wessV98eEeuOZ9jn5kg7gA" sendEvent="_wessVt8eEeuOZ9jn5kg7gA"/>
+      <message xmi:id="_wessYN8eEeuOZ9jn5kg7gA" name="message" messageSort="reply" receiveEvent="_wessWd8eEeuOZ9jn5kg7gA" sendEvent="_wessWN8eEeuOZ9jn5kg7gA"/>
     </ownedBehavior>
   </packagedElement>
 </uml:Model>

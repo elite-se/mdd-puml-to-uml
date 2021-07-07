@@ -1,6 +1,8 @@
 modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
 modeltype PlantUML uses "http://www.mdd.elite/plantuml/PlantUML";
 
+modeltype ECore uses "http://www.eclipse.org/emf/2002/Ecore";
+
 transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
 
 main() {
@@ -87,12 +89,12 @@ mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Inte
 	interaction := parentInteraction;
 	var sendOccurence := object MessageOccurrenceSpecification {name := result.name + '_' + 'send'; 
 		message := result;
-		covered := self.sender.late resolveone(UML::Lifeline);
+		covered := self.sender.resolveone(UML::Lifeline);
 		enclosingInteraction := parentInteraction;
 	};
 	var receiveOccurence := object MessageOccurrenceSpecification {
 		message := result;
-		covered := self.receiver.late resolveone(UML::Lifeline);
+		covered := self.receiver.resolveone(UML::Lifeline);
 		enclosingInteraction := parentInteraction;
 	};
 	sendEvent := sendOccurence;
@@ -107,6 +109,28 @@ MessageDefinition::senderAndReceiver {
 	sendEvent.name := name + '_' + 'send';
 	receiveEvent.name := name + '_' + 'receive';
 	messageSort := MessageSort::synchCall;
+	argument += self.message.arguments -> map toArgument();
+	var receiverClass : UML::Class = self.receiver.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
+	receiverClass.ownedOperation += self.message -> map toOperation();	
+}
+
+mapping PlantUML::RequestMessage::toOperation(): UML::Operation {
+	name := self.name;
+	ownedParameter += self.arguments -> map toParameter();
+}
+
+mapping RequestMessageArgument::toParameter(): UML::Parameter {
+	// Direction: IN is default
+	// TODO: give name with integer
+	name := if (self.name.oclIsUndefined())
+		then 'inParam'
+		else self.name
+		endif;
+}
+
+
+mapping RequestMessageArgument::toArgument(): UML::LiteralInteger {
+	value := 5;
 }
 
 mapping ReplyMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
@@ -115,5 +139,31 @@ MessageDefinition::senderAndReceiver {
 	sendEvent.name := name + '_' + 'send';
 	receiveEvent.name := name + '_' + 'receive';
 	messageSort := MessageSort::reply;
+	var operation : UML::Operation := self.getOperation(result.name);
+	if (not operation.oclIsUndefined()) {
+		operation.ownedParameter += self.message.arguments -> map toParameter();
+		if (not self.message.value.oclIsUndefined()) then {
+			operation.ownedParameter += object UML::Parameter { 
+				name := 'returnParam';
+				direction := ParameterDirectionKind::_return;
+			}
+		} endif;
+	}
+}
+
+query ReplyMessageDefinition::getOperation(name : String) {
+	self.getClass().ownedOperation->any(op : UML::Operation | op.name = name);
+}
+
+query ReplyMessageDefinition::getClass(): UML::Class {
+	return self.sender.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
+}
+
+mapping ReplyMessageArgument::toParameter(): UML::Parameter {
+
+	// Direction: IN is default
+	// TODO: give name with integer
+	name := 'outParam';
+	direction := ParameterDirectionKind::_out;
 }
 

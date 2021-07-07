@@ -6,6 +6,6 @@ participant "node0 : WWebserver" as node0
 participant ": WeatherAPI"
 Bob -> node0: getWeather(location='Augsburg')
 node0 -> ": WeatherAPI" : getWeatherData(long=48360455, lat=10901283)
-node0 <<-- Bob: test
-Bob <<-- node0: reply
+node0 <<-- ": WeatherAPI" : test = getWeatherData() : 5
+Bob <<-- node0 : message(out : 10)
 @enduml

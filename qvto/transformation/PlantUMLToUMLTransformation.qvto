@@ -38,7 +38,11 @@ query TitleDefinition::getTitle(): String {
 }
 
 mapping Participant::toClass(): UML::Class {
-	name := self.name.firstToUpper();
+	name := 
+		if (self.type.oclIsUndefined())
+		then self.name.firstToUpper()
+		else self.type
+		endif;
 }
 
 mapping Diagram::toCollaboration(): UML::Collaboration {
@@ -58,10 +62,15 @@ mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccuren
 }
 
 mapping Participant::toLifeline(parentInteraction: UML::Interaction): Lifeline {
-	name := self.name;
+	if (self.name.oclIsUndefined()) then {
+		// anonymous Participant
+		name := ':' + self.type;
+	} else {
+		name := self.name;
+	} endif;
 	interaction := parentInteraction;
 	var representedProperty := object UML::Property {
-		name := self.name.toLower();
+		name := result.name.toLower();
 		type := self.resolveone(UML::Class);
 	};
 	represents := representedProperty;

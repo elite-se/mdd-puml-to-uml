@@ -3,9 +3,9 @@ title Weather API
 title is great
 actor "Bob : User" as Bob
 participant "node0 : WWebserver" as node0
-participant "weather : WeatherAPI" as anonymusWeatherAPI1
+participant ": WeatherAPI"
 Bob -> node0: getWeather(location='Augsburg')
-node0 -> anonymusWeatherAPI1: getWeatherData(long=48360455, lat=10901283)
-node0 <<-- anonymusWeatherAPI1: test
+node0 -> ": WeatherAPI" : getWeatherData(long=48360455, lat=10901283)
+node0 <<-- Bob: test
 Bob <<-- node0: reply
 @enduml

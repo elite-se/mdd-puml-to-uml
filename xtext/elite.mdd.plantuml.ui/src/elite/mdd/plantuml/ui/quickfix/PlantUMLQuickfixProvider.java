@@ -47,16 +47,7 @@ public class PlantUMLQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PlantUMLFactory factory;
 
- //@Fix(PlantUMLValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
+
 	@Fix(PlantUMLValidator.PARTICIPANT_NAME_MISSING)
 	public void addNameToParticipant(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add name to Participant", "Add name to participant: "+issue.getData()[0], "Entity.gif",

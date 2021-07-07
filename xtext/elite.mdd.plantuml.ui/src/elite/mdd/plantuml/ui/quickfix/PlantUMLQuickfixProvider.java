@@ -3,8 +3,18 @@
  */
 package elite.mdd.plantuml.ui.quickfix;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.diagnostics.Diagnostic;
+import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
+import org.eclipse.xtext.parser.antlr.ISyntaxErrorMessageProvider;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.model.edit.IModification;
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext;
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification;
@@ -15,9 +25,14 @@ import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Inject;
 
+import elite.mdd.plantuml.plantUML.Diagram;
 import elite.mdd.plantuml.plantUML.NamedParticipant;
 import elite.mdd.plantuml.plantUML.Participant;
+import elite.mdd.plantuml.plantUML.ParticipantDefinition;
+import elite.mdd.plantuml.plantUML.ParticipantShape;
 import elite.mdd.plantuml.plantUML.PlantUMLFactory;
+import elite.mdd.plantuml.plantUML.PlantUMLPackage;
+import elite.mdd.plantuml.plantUML.RequestMessageDefinition;
 import elite.mdd.plantuml.plantUML.UnnamedParticipant;
 import elite.mdd.plantuml.validation.PlantUMLValidator;
 
@@ -32,16 +47,7 @@ public class PlantUMLQuickfixProvider extends DefaultQuickfixProvider {
 	@Inject
 	private PlantUMLFactory factory;
 
- //@Fix(PlantUMLValidator.INVALID_NAME)
-//	public void capitalizeName(final Issue issue, IssueResolutionAcceptor acceptor) {
-//		acceptor.accept(issue, "Capitalize name", "Capitalize the name.", "upcase.png", new IModification() {
-//			public void apply(IModificationContext context) throws BadLocationException {
-//				IXtextDocument xtextDocument = context.getXtextDocument();
-//				String firstLetter = xtextDocument.get(issue.getOffset(), 1);
-//				xtextDocument.replace(issue.getOffset(), 1, firstLetter.toUpperCase());
-//			}
-//		});
-//	}
+
 	@Fix(PlantUMLValidator.PARTICIPANT_NAME_MISSING)
 	public void addNameToParticipant(final Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add name to Participant", "Add name to participant: "+issue.getData()[0], "Entity.gif",
@@ -59,6 +65,32 @@ public class PlantUMLQuickfixProvider extends DefaultQuickfixProvider {
 						}else {
 							participant.setName(participant.getType().toLowerCase());
 						}
+					}
+				});
+	}
+	
+	@Fix(Diagnostic.LINKING_DIAGNOSTIC)
+	public void createParticipantDefinition(final Issue issue, IssueResolutionAcceptor acceptor) {
+		acceptor.accept(issue, "Create new Participant", "Create new Participant: ", "Entity.gif", 
+				new ISemanticModification() {
+					
+					@Override
+					public void apply(EObject element, IModificationContext context) throws Exception {
+						IXtextDocument xtextDocument = context.getXtextDocument();
+						String sender = xtextDocument.get(issue.getOffset(), issue.getLength());
+						sender = sender.replace("\"", "");
+						NamedParticipant newParticipant = factory.createNamedParticipant();
+						newParticipant.setType(sender.substring(0, 1).toUpperCase() + sender.substring(1));
+						newParticipant.setName(sender);
+						newParticipant.setLabel(sender);
+						ParticipantDefinition newParticipantDefinition = factory.createParticipantDefinition();
+						newParticipantDefinition.setParticipant(newParticipant);
+						newParticipantDefinition.setShape(ParticipantShape.PARTICIPANT);
+						EObject root = EcoreUtil.getRootContainer(element);
+						Diagram diagram = (Diagram) root; 
+						int pos = (int) diagram.getElements().stream().filter(e -> e instanceof ParticipantDefinition).count();
+						diagram.getElements().add(pos, newParticipantDefinition);
+						EcoreUtil.replace(root, diagram);
 					}
 				});
 	}

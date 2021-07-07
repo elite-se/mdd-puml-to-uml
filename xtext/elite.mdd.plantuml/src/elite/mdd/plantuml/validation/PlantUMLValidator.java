@@ -13,6 +13,7 @@ import elite.mdd.plantuml.plantUML.AnonymousParticipant;
 import elite.mdd.plantuml.plantUML.NamedParticipant;
 import elite.mdd.plantuml.plantUML.Participant;
 import elite.mdd.plantuml.plantUML.PlantUMLPackage;
+import elite.mdd.plantuml.plantUML.RequestMessageArgument;
 
 /**
  * This class contains custom validation rules. 
@@ -33,6 +34,7 @@ public class PlantUMLValidator extends AbstractPlantUMLValidator {
 //	}
 	public static final String ISSUE_CODE_PREFIX = "elite.mdd.plantumlm.";
 	public static final String PARTICIPANT_NAME_MISSING = ISSUE_CODE_PREFIX +  "ParticipantNameMissing";
+	public static final String REQUEST_MESSAGE_ARGUMENT_NAME_MISSING = ISSUE_CODE_PREFIX +  "RequestMessageArgumentNameMissing";
 	
 	@Inject
 	private IQualifiedNameProvider nameProvider;
@@ -49,5 +51,14 @@ public class PlantUMLValidator extends AbstractPlantUMLValidator {
 				PARTICIPANT_NAME_MISSING, participantName);
 	}
 	
+	@Check
+	public void chekRequestMessageArgumentNameMissing(RequestMessageArgument argument) {
+		if(argument.getName() != null) {
+			return;
+		}
+		warning("Arguments should have names", 
+				PlantUMLPackage.eINSTANCE.getRequestMessageArgument_Value(),
+				REQUEST_MESSAGE_ARGUMENT_NAME_MISSING);
+	}
 	
 }

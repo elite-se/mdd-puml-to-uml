@@ -27,12 +27,15 @@ UnnamedParticipant returns Participant:
 	{Participant} '"'name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? '"'
 ;
 AnonymousParticipant returns Participant:
-	{Participant} '":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' 
+	{Participant} '":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' ('as' name=ID)?
 ;
 
 
+// Attention: The ParticipantMention rules output value is converted by
+// a custom ValueConverter and all Double-Quotes and Spaces are removed
+// so that the output can match a name of a referenced Participant.
 ParticipantMention:
-	ID | ':' ID
+	ID | '":' ID '"' | '"' ID '"'
 ;
 	
 enum ParticipantShape:
@@ -50,13 +53,15 @@ MessageDefinition:
 	RequestMessageDefinition
 	| ReplyMessageDefinition;
 	
+
+	
 RequestMessageDefinition:
-	(('"')? sender=[Participant|ParticipantMention] ('"')? arrow=(RightRequest) ('"')? receiver=[Participant] ('"')?) (':' message=RequestMessage)
-	| (('"')?receiver=[Participant]('"')? arrow=(LeftRequest) ('"')?sender=[Participant]('"')?) (':' message=RequestMessage);
+	(sender=[Participant|ParticipantMention] arrow=(RightRequest)  receiver=[Participant|ParticipantMention] ) (':' message=RequestMessage)
+	| (receiver=[Participant|ParticipantMention] arrow=(LeftRequest) sender=[Participant|ParticipantMention]) (':' message=RequestMessage);
 	
 ReplyMessageDefinition:
-	(('"')?sender=[Participant]('"')? arrow=RightReply ('"')?receiver=[Participant]('"')?) (':' message=ReplyMessage)
-	| (('"')?receiver=[Participant]('"')? arrow=LeftReply ('"')?sender=[Participant]('"')?) (':' message=ReplyMessage);
+	(sender=[Participant|ParticipantMention] arrow=RightReply receiver=[Participant|ParticipantMention]) (':' message=ReplyMessage)
+	| (receiver=[Participant|ParticipantMention] arrow=LeftReply sender=[Participant|ParticipantMention]) (':' message=ReplyMessage);
 	
 // TODO: Handle \"	
 RequestMessage:

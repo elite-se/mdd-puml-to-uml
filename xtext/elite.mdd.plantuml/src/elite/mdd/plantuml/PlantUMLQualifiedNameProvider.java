@@ -27,7 +27,6 @@ public class PlantUMLQualifiedNameProvider extends DefaultDeclarativeQualifiedNa
 			if(((Participant) obj).getName() == null) {
 				return QualifiedName.create(":"+ ((Participant) obj).getType());
 			}
-			return QualifiedName.create(((Participant) obj).getName());
 		}
 		return super.getFullyQualifiedName(obj);
 	}

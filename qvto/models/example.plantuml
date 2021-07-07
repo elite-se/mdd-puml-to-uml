@@ -1,11 +1,17 @@
 @startuml
-title Weather API
-title is great
 actor "Bob : User" as Bob
+actor "Alice : User" as Alice
 participant "node0 : WWebserver" as node0
-participant "weather : WeatherAPI" as anonymusWeatherAPI1
+participant ": WeatherAPI" as anonymusWeatherAPI1
+participant "friend : Friend" as friend
 Bob -> node0: getWeather(location='Augsburg')
-node0 -> anonymusWeatherAPI1: getWeatherData(long=48360455, lat=10901283)
-node0 <<-- anonymusWeatherAPI1: test
-Bob <<-- node0: reply
+node0 -> anonymusWeatherAPI1: getWeatherData(long=48.360455, lat=10.901283)
+node0 <<-- anonymusWeatherAPI1: getWeatherData: 'sunny'
+Bob <<-- node0: getWeather: 'sunny'
+Alice -> node0: getWeather(location='Augsburg')
+node0 -> anonymusWeatherAPI1: getWeatherData(long=48.360455, lat=10.901283)
+node0 <<-- anonymusWeatherAPI1: getWeatherData: 'sunny'
+Alice <<-- node0: getWeather: 'sunny'
+friend -> Alice : how('are', 'you')
+friend -> Bob : thanks('im', 'good')
 @enduml

@@ -76,8 +76,7 @@ RequestMessageArgument:
 	;
 	
 ReplyMessage:
-	name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')?
-	| variable=ID "=" name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=Value)?
+	(variable=ID "=")? name=ID ('('(arguments+=ReplyMessageArgument (',' arguments+=ReplyMessageArgument)*)?')')? (':' value=Value)?
 	;
 	
 ReplyMessageArgument:
@@ -89,7 +88,8 @@ terminal SIGNED_INT returns ecore::EDouble:
 ;
 
 terminal SIGNED_REAL returns ecore::EDouble:
-	('-' | '+')? INT '.' INT (('e' | 'E') ('+' | '-')?  INT)?
+	('-' | '+')? INT '.' INT (('e' | 'E') ('+' | '-')?  INT)? |
+	('-' | '+')? INT ('e' | 'E') ('+' | '-')?  INT
 ;
 Value:
 	{LiteralInteger} value = INT

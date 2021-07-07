@@ -10,6 +10,7 @@ import elite.mdd.plantuml.plantUML.LiteralInteger;
 import elite.mdd.plantuml.plantUML.LiteralNull;
 import elite.mdd.plantuml.plantUML.LiteralReal;
 import elite.mdd.plantuml.plantUML.LiteralString;
+import elite.mdd.plantuml.plantUML.LiteralUnlimitedNatural;
 import elite.mdd.plantuml.plantUML.ParticipantDefinition;
 import elite.mdd.plantuml.plantUML.ReplyMessageDefinition;
 import elite.mdd.plantuml.plantUML.RequestArrow;
@@ -67,6 +68,9 @@ public class PlantUMLLabelProvider extends DefaultEObjectLabelProvider {
 		}
 		if(value instanceof LiteralString) {
 			return ((LiteralString) value).getValue()  + " : LiteralString";
+		}
+		if(value instanceof LiteralUnlimitedNatural) {
+			return ((LiteralUnlimitedNatural) value).getValue()  + " : LiteralUnlimitedNatural";
 		}
 		return value.toString();
 	}

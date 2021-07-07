@@ -6,21 +6,44 @@ modeltype ECore uses "http://www.eclipse.org/emf/2002/Ecore";
 transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
 
 main() {
-	var paramCounter := 0;
+	// Create Parent Model
 	object UML::Model {
 		var diagrams = source.rootObjects()[Diagram];
 		
+		// Static Package with Class Declarations
 		packagedElement += object UML::Package {
 			name := 'Static';
-			packagedElement += diagrams.elements[ParticipantDefinition].participant -> map toClass();
+			packagedElement += diagrams
+				.elements[ParticipantDefinition]
+				.participant
+				-> filterUnique()
+				-> map toClass();
 		};
 		
+		// Create Collaborations for each declared diagram (should be 1)
 		packagedElement += diagrams -> map toCollaboration();
 			
 		name := diagrams -> iterate( i: Diagram; newName : String = '' | newName + i.getName());
 	};
 }
 
+query Bag(Participant)::filterUnique(): Bag(Participant) {
+	return self->iterate( participant : Participant; res : Bag(Participant) = Bag {} |
+		if ( not res->exists(p2 : Participant | 
+			if (participant.type.oclIsUndefined()) 
+			then p2.name = participant.name 
+			else p2.type = participant.type
+			endif)
+		) 
+		then res->including(participant)
+		else res
+		endif
+	)
+}
+
+/**
+* Concatenate name from all diagrams
+*/
 query Diagram::getName(): String {
 	if (self.elements[TitleDefinition]->isEmpty()) then {
 		return 'Unnamed Model';
@@ -32,6 +55,9 @@ query Diagram::getName(): String {
 	);
 }
 
+/**
+* Concatenate title parts
+*/
 query TitleDefinition::getTitle(): String {
 	return self.titleParts -> iterate ( tp: String; title: String = '' |
 		title 
@@ -40,6 +66,9 @@ query TitleDefinition::getTitle(): String {
 	);
 }
 
+/**
+* Create class from type or default to name
+*/
 mapping Participant::toClass(): UML::Class {
 	name := 
 		if (self.type.oclIsUndefined())
@@ -48,6 +77,9 @@ mapping Participant::toClass(): UML::Class {
 		endif;
 }
 
+/**
+* Create Collaboration for Diagram
+*/
 mapping Diagram::toCollaboration(): UML::Collaboration {
 	name := self.getName();
 	var interaction = object UML::Interaction {
@@ -59,14 +91,11 @@ mapping Diagram::toCollaboration(): UML::Collaboration {
 	interaction.message += self.elements[MessageDefinition] -> map toUMLMessage(interaction);
 }
 
-mapping ReplyMessageDefinition::test(out message : UML::Message, out sendOccurence : UML::MessageOccurrenceSpecification) {
-	message.name := self.message.name;
-	sendOccurence.message := message;
-}
-
+/**
+* Create Lifeline from Participant
+*/
 mapping Participant::toLifeline(parentInteraction: UML::Interaction): Lifeline {
-	if (self.name.oclIsUndefined()) then {
-		// anonymous Participant
+	if (self.oclIsTypeOf(PlantUML::AnonymousParticipant)) {
 		name := ':' + self.type;
 	} else {
 		name := self.name;
@@ -82,10 +111,17 @@ mapping Participant::toLifeline(parentInteraction: UML::Interaction): Lifeline {
 	parentCollaboration.ownedAttribute += representedProperty;
 }
 
+/**
+* Map MessageDefinition to Message
+* This "dispatches" the call to RequestMessageDefinition::toUMLMessage and ReplyMessageDefinition::toUMLMessage
+*/
 mapping MessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction) : UML::Message disjuncts 
 RequestMessageDefinition::toUMLMessage,
 ReplyMessageDefinition::toUMLMessage { }
 
+/**
+* Add MessageOccurrenceSpecifications to ALL MessageDefinitions
+*/
 mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Interaction): UML::Message {
 	interaction := parentInteraction;
 	var sendOccurence := object MessageOccurrenceSpecification {name := result.name + '_' + 'send'; 
@@ -106,6 +142,9 @@ mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Inte
 
 property messageOccurenceSpecificationCounter : Integer = 0;
 
+/**
+* Create Messages from RequestMessages
+*/
 mapping RequestMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
 	name := self.message.name;
@@ -118,10 +157,17 @@ MessageDefinition::senderAndReceiver {
 		else MessageSort::asynchCall
 		endif;
 	argument += self.message.arguments.toArgument();
-	var receiverClass : UML::Class = self.receiver.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
-	if (not receiverClass.ownedOperation.name->includes(self.message.name)) receiverClass.ownedOperation += self.message -> map toOperation();	
+	var operation := self.getOperation(result.name);
+	if (operation.oclIsUndefined()) {
+		operation := self.message.map toOperation();
+		self.getClass().ownedOperation += operation;
+	} endif;
+	signature := operation;	
 }
 
+/**
+* Create Operations from RequestMessages
+*/
 mapping PlantUML::RequestMessage::toOperation(): UML::Operation {
 	name := self.name;
 	ownedParameter += self.arguments -> map toParameter();
@@ -129,6 +175,9 @@ mapping PlantUML::RequestMessage::toOperation(): UML::Operation {
 
 property inParamCounter : Integer = 0;
 
+/**
+* Create Parameter (for Operations) from Arguments
+*/
 mapping RequestMessageArgument::toParameter(): UML::Parameter {
 	if (self.name.oclIsUndefined()) {
 		name := 'inParam' + inParamCounter.toString();
@@ -138,12 +187,18 @@ mapping RequestMessageArgument::toParameter(): UML::Parameter {
 	} endif;
 }
 
+/**
+* Create Arguments (for Messages) from Arguments
+*/
 query RequestMessageArgument::toArgument(): UML::LiteralSpecification {
 	var res := self.value.map toLiteralSpecification();
 	res.name := self.name;
 	return res;
 }
 
+/**
+* ValueSpecifications for every type
+*/
 mapping PlantUML::Value::toLiteralSpecification(): UML::LiteralSpecification disjuncts 
 PlantUML::LiteralBoolean::toLiteralSpecification,
 PlantUML::LiteralInteger::toLiteralSpecification, 
@@ -178,6 +233,9 @@ mapping PlantUML::LiteralUnlimitedNatural::toLiteralSpecification(): UML::Litera
 
 property returnParamCounter : Integer = 0;
 
+/**
+* Create Message from ReplyMessage
+*/
 mapping ReplyMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
 	name := self.message.name;
@@ -186,7 +244,10 @@ MessageDefinition::senderAndReceiver {
 	messageOccurenceSpecificationCounter := messageOccurenceSpecificationCounter + 1;
 	messageSort := MessageSort::reply;
 	var operation : UML::Operation := self.getOperation(result.name);
+	// Only add out / return parameters to existing operations
+	// We don't want to create new operations in reply messages
 	if (not operation.oclIsUndefined()) {
+		signature := operation;
 		operation.ownedParameter += self.message.arguments -> map toParameter();
 		if (not self.message.value.oclIsUndefined()) then {
 			operation.ownedParameter += object UML::Parameter { 
@@ -202,8 +263,16 @@ query ReplyMessageDefinition::getOperation(name : String): UML::Operation {
 	return self.getClass().ownedOperation->any(op : UML::Operation | op.name = name);
 }
 
+query RequestMessageDefinition::getOperation(name : String): UML::Operation {
+	return self.getClass().ownedOperation->any(op : UML::Operation | op.name = name);
+}
+
 query ReplyMessageDefinition::getClass(): UML::Class {
 	return self.sender.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
+}
+
+query RequestMessageDefinition::getClass(): UML::Class {
+	return self.receiver.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
 }
 
 property outParamCounter : Integer = 0;
@@ -213,4 +282,6 @@ mapping ReplyMessageArgument::toParameter(): UML::Parameter {
 	outParamCounter := outParamCounter + 1;
 	direction := ParameterDirectionKind::_out;
 }
+
+
 

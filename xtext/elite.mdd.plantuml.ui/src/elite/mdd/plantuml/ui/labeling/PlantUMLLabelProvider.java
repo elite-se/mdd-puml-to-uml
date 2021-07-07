@@ -5,10 +5,17 @@ package elite.mdd.plantuml.ui.labeling;
 
 import com.google.inject.Inject;
 
+import elite.mdd.plantuml.plantUML.LiteralBoolean;
+import elite.mdd.plantuml.plantUML.LiteralInteger;
+import elite.mdd.plantuml.plantUML.LiteralNull;
+import elite.mdd.plantuml.plantUML.LiteralReal;
+import elite.mdd.plantuml.plantUML.LiteralString;
+import elite.mdd.plantuml.plantUML.LiteralUnlimitedNatural;
 import elite.mdd.plantuml.plantUML.ParticipantDefinition;
 import elite.mdd.plantuml.plantUML.ReplyMessageDefinition;
 import elite.mdd.plantuml.plantUML.RequestArrow;
 import elite.mdd.plantuml.plantUML.RequestMessageDefinition;
+import elite.mdd.plantuml.plantUML.Value;
 
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
@@ -44,4 +51,28 @@ public class PlantUMLLabelProvider extends DefaultEObjectLabelProvider {
 		return "reply: " + replyMessage.getSender().getName() + " -> " + replyMessage.getReceiver().getName() + 
 				" : " + replyMessage.getMessage().getName();
 	}
+	
+	String text(Value value) {
+		
+		if(value instanceof LiteralInteger) {
+			return ((LiteralInteger) value).getValue() + " : LiteralInteger";
+		}
+		if(value instanceof LiteralReal) {
+			return ((LiteralReal) value).getValue() + " : LiteralReal";
+		}
+		if(value instanceof LiteralNull) {
+			return "LiteralNull";
+		}
+		if(value instanceof LiteralBoolean) {
+			return ((LiteralBoolean) value).isValue()  + " : LiteralBoolean";
+		}
+		if(value instanceof LiteralString) {
+			return ((LiteralString) value).getValue()  + " : LiteralString";
+		}
+		if(value instanceof LiteralUnlimitedNatural) {
+			return ((LiteralUnlimitedNatural) value).getValue()  + " : LiteralUnlimitedNatural";
+		}
+		return value.toString();
+	}
+	
 }

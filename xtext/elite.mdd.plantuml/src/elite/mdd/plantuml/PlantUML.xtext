@@ -22,15 +22,15 @@ Participant:
 	NamedParticipant | UnnamedParticipant | AnonymousParticipant |{Participant} name = 'self' ;
 	
 NamedParticipant returns Participant:
-	{Participant} '"' label=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?
+	{NamedParticipant} '"' label=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)?
 	'"' 'as' name=ID 
 ;
 
 UnnamedParticipant returns Participant:
-	{Participant} '"'name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? '"'
+	{UnnamedParticipant} '"'name=ID ('['selector=ID']')? (':' type=ID)? ('ref' interactionIdent=ID ('strict')?)? '"'
 ;
 AnonymousParticipant returns Participant:
-	{Participant} '":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' ('as' name=ID)?
+	{AnonymousParticipant} '":' type = ID ('ref' interactionIdent=ID ('strict')?)?'"' ('as' name=ID)?
 ;
 
 

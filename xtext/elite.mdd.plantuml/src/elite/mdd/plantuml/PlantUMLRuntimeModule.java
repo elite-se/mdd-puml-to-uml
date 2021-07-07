@@ -6,10 +6,21 @@ package elite.mdd.plantuml;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 
+import com.google.inject.Binder;
+
+import elite.mdd.plantuml.plantUML.PlantUMLFactory;
+import elite.mdd.plantuml.plantUML.impl.PlantUMLFactoryImpl;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PlantUMLRuntimeModule extends AbstractPlantUMLRuntimeModule {
+	
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(PlantUMLFactory.class).toInstance(PlantUMLFactoryImpl.init());
+	}
 	
 	@Override
 	public Class<? extends IValueConverterService> bindIValueConverterService() {

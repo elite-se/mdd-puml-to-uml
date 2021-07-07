@@ -25,5 +25,6 @@ Export-Package: elite.mdd.plantuml.plantUML.util,
  elite.mdd.plantuml.services,
  elite.mdd.plantuml.parser.antlr,
  elite.mdd.plantuml,
- elite.mdd.plantuml.scoping
+ elite.mdd.plantuml.scoping,
+ elite.mdd.plantuml.formatting2
 Import-Package: org.apache.log4j

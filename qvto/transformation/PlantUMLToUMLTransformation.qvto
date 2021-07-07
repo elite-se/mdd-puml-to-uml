@@ -66,6 +66,8 @@ query TitleDefinition::getTitle(): String {
 	);
 }
 
+property classes : Bag(UML::Class) = Bag {};
+
 /**
 * Create class from type or default to name
 */
@@ -75,6 +77,7 @@ mapping Participant::toClass(): UML::Class {
 		then self.name.firstToUpper()
 		else self.type
 		endif;
+	classes += result;
 }
 
 /**
@@ -103,7 +106,12 @@ mapping Participant::toLifeline(parentInteraction: UML::Interaction): Lifeline {
 	interaction := parentInteraction;
 	var representedProperty := object UML::Property {
 		name := result.name.toLower();
-		type := self.resolveone(UML::Class);
+		type := classes->any(c : UML::Class | c.name =
+			if (self.type.oclIsUndefined())
+			then self.name
+			else self.type
+			endif
+		);
 	};
 	represents := representedProperty;
 	var parentCollaboration = parentInteraction.context.oclAsType(UML::Collaboration); 

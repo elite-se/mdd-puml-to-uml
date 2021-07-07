@@ -6,6 +6,7 @@ modeltype ECore uses "http://www.eclipse.org/emf/2002/Ecore";
 transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
 
 main() {
+	var paramCounter := 0;
 	object UML::Model {
 		var diagrams = source.rootObjects()[Diagram];
 		
@@ -103,15 +104,22 @@ mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Inte
 	parentInteraction.fragment += receiveOccurence;
 }
 
+property messageOccurenceSpecificationCounter : Integer = 0;
+
 mapping RequestMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
 	name := self.message.name;
-	sendEvent.name := name + '_' + 'send';
-	receiveEvent.name := name + '_' + 'receive';
-	messageSort := MessageSort::synchCall;
-	argument += self.message.arguments -> map toArgument();
+	sendEvent.name := name + '_' + 'send' + messageOccurenceSpecificationCounter.toString();
+	receiveEvent.name := name + '_' + 'receive' + messageOccurenceSpecificationCounter.toString();
+	messageOccurenceSpecificationCounter := messageOccurenceSpecificationCounter + 1;
+	messageSort := 
+		if (self.arrow = RequestArrow::RIGHT_SYNC or self.arrow = RequestArrow::LEFT_SYNC)
+		then MessageSort::synchCall
+		else MessageSort::asynchCall
+		endif;
+	argument += self.message.arguments.toArgument();
 	var receiverClass : UML::Class = self.receiver.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
-	receiverClass.ownedOperation += self.message -> map toOperation();	
+	if (not receiverClass.ownedOperation.name->includes(self.message.name)) receiverClass.ownedOperation += self.message -> map toOperation();	
 }
 
 mapping PlantUML::RequestMessage::toOperation(): UML::Operation {
@@ -119,51 +127,90 @@ mapping PlantUML::RequestMessage::toOperation(): UML::Operation {
 	ownedParameter += self.arguments -> map toParameter();
 }
 
+property inParamCounter : Integer = 0;
+
 mapping RequestMessageArgument::toParameter(): UML::Parameter {
-	// Direction: IN is default
-	// TODO: give name with integer
-	name := if (self.name.oclIsUndefined())
-		then 'inParam'
-		else self.name
-		endif;
+	if (self.name.oclIsUndefined()) {
+		name := 'inParam' + inParamCounter.toString();
+		inParamCounter := inParamCounter + 1;
+	} else {
+		name := self.name;
+	} endif;
 }
 
-
-mapping RequestMessageArgument::toArgument(): UML::LiteralInteger {
-	value := 5;
+query RequestMessageArgument::toArgument(): UML::LiteralSpecification {
+	var res := self.value.map toLiteralSpecification();
+	res.name := self.name;
+	return res;
 }
+
+mapping PlantUML::Value::toLiteralSpecification(): UML::LiteralSpecification disjuncts 
+PlantUML::LiteralBoolean::toLiteralSpecification,
+PlantUML::LiteralInteger::toLiteralSpecification, 
+PlantUML::LiteralNull::toLiteralSpecification,
+PlantUML::LiteralString::toLiteralSpecification,
+PlantUML::LiteralReal::toLiteralSpecification,
+PlantUML::LiteralUnlimitedNatural::toLiteralSpecification
+{ }
+
+mapping PlantUML::LiteralBoolean::toLiteralSpecification(): UML::LiteralBoolean {
+	value := self.value;
+}
+
+mapping PlantUML::LiteralInteger::toLiteralSpecification(): UML::LiteralInteger {
+	value := self.value
+}
+
+mapping PlantUML::LiteralNull::toLiteralSpecification(): UML::LiteralNull { }
+
+mapping PlantUML::LiteralString::toLiteralSpecification(): UML::LiteralString {
+	value := self.value;
+}
+
+mapping PlantUML::LiteralReal::toLiteralSpecification(): UML::LiteralReal {
+	value := self.value;
+}
+
+mapping PlantUML::LiteralUnlimitedNatural::toLiteralSpecification(): UML::LiteralUnlimitedNatural {
+	// TODO: Check
+	value := -1;
+}
+
+property returnParamCounter : Integer = 0;
 
 mapping ReplyMessageDefinition::toUMLMessage(inout parentInteraction : UML::Interaction): UML::Message inherits
 MessageDefinition::senderAndReceiver {
 	name := self.message.name;
-	sendEvent.name := name + '_' + 'send';
-	receiveEvent.name := name + '_' + 'receive';
+	sendEvent.name := name + '_' + 'send' + messageOccurenceSpecificationCounter.toString();
+	receiveEvent.name := name + '_' + 'receive' + messageOccurenceSpecificationCounter.toString();
+	messageOccurenceSpecificationCounter := messageOccurenceSpecificationCounter + 1;
 	messageSort := MessageSort::reply;
 	var operation : UML::Operation := self.getOperation(result.name);
 	if (not operation.oclIsUndefined()) {
 		operation.ownedParameter += self.message.arguments -> map toParameter();
 		if (not self.message.value.oclIsUndefined()) then {
 			operation.ownedParameter += object UML::Parameter { 
-				name := 'returnParam';
+				name := 'returnParam' + returnParamCounter.toString();
+				returnParamCounter := returnParamCounter + 1;
 				direction := ParameterDirectionKind::_return;
 			}
 		} endif;
 	}
 }
 
-query ReplyMessageDefinition::getOperation(name : String) {
-	self.getClass().ownedOperation->any(op : UML::Operation | op.name = name);
+query ReplyMessageDefinition::getOperation(name : String): UML::Operation {
+	return self.getClass().ownedOperation->any(op : UML::Operation | op.name = name);
 }
 
 query ReplyMessageDefinition::getClass(): UML::Class {
 	return self.sender.resolveone(UML::Lifeline).represents.type.oclAsType(UML::Class);
 }
 
-mapping ReplyMessageArgument::toParameter(): UML::Parameter {
+property outParamCounter : Integer = 0;
 
-	// Direction: IN is default
-	// TODO: give name with integer
-	name := 'outParam';
+mapping ReplyMessageArgument::toParameter(): UML::Parameter {
+	name := 'outParam' + outParamCounter.toString();
+	outParamCounter := outParamCounter + 1;
 	direction := ParameterDirectionKind::_out;
 }
 

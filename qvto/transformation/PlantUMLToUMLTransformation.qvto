@@ -1,11 +1,21 @@
 modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
 modeltype PlantUML uses "http://www.mdd.elite/plantuml/PlantUML";
+modeltype Primitives uses "http://www.eclipse.org/uml2/5.0.0/Types";
 
 modeltype ECore uses "http://www.eclipse.org/emf/2002/Ecore";
 
-transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
+transformation PlantUMLToUMLTransformation(in source: PlantUML, in primitives: Primitives, out target: UML);
+
+property allTypes : Set(PrimitiveType);
+
+query Set(PrimitiveType)::getType(name : String): PrimitiveType {
+	return self->any(p : PrimitiveType | p.name = name);
+}
 
 main() {
+	// Set Primitive Types
+	allTypes := primitives.rootObjects()[Model]->any(true).ownedElement[PrimitiveType];
+	
 	// Create Parent Model
 	object UML::Model {
 		var diagrams = source.rootObjects()[Diagram];
@@ -289,6 +299,7 @@ mapping ReplyMessageArgument::toParameter(): UML::Parameter {
 	name := 'outParam' + outParamCounter.toString();
 	outParamCounter := outParamCounter + 1;
 	direction := ParameterDirectionKind::_out;
+	type := allTypes->getType('Integer');
 }
 
 

@@ -256,8 +256,10 @@ MessageDefinition::senderAndReceiver {
 	// We don't want to create new operations in reply messages
 	if (not operation.oclIsUndefined()) {
 		signature := operation;
-		operation.ownedParameter += self.message.arguments -> map toParameter();
-		if (not self.message.value.oclIsUndefined()) then {
+		if (not operation.ownedParameter->exists(op : UML::Parameter | op.direction = ParameterDirectionKind::_out)) {
+			operation.ownedParameter += self.message.arguments -> map toParameter();			
+		} endif;
+		if (not self.message.value.oclIsUndefined() and not operation.ownedParameter->exists(op : UML::Parameter | op.direction = ParameterDirectionKind::_return)) then {
 			operation.ownedParameter += object UML::Parameter { 
 				name := 'returnParam' + returnParamCounter.toString();
 				returnParamCounter := returnParamCounter + 1;

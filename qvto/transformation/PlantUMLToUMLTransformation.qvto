@@ -203,6 +203,8 @@ mapping RequestMessageArgument::toParameter(): UML::Parameter {
 	} else {
 		name := self.name;
 	} endif;
+	
+	type := self.value.toType();
 }
 
 /**
@@ -272,6 +274,7 @@ MessageDefinition::senderAndReceiver {
 				name := 'returnParam' + returnParamCounter.toString();
 				returnParamCounter := returnParamCounter + 1;
 				direction := ParameterDirectionKind::_return;
+				type := self.message.value.toType();
 			}
 		} endif;
 	}
@@ -299,8 +302,17 @@ mapping ReplyMessageArgument::toParameter(): UML::Parameter {
 	name := 'outParam' + outParamCounter.toString();
 	outParamCounter := outParamCounter + 1;
 	direction := ParameterDirectionKind::_out;
-	type := allTypes->getType('Integer');
+	type := self.value.toType();
 }
 
-
-
+query PlantUML::Value::toType(): UML::PrimitiveType {
+	switch {
+		case (self.oclIsTypeOf(PlantUML::LiteralBoolean)) return allTypes->getType('Boolean');
+		case (self.oclIsTypeOf(PlantUML::LiteralInteger)) return allTypes->getType('Integer');
+		case (self.oclIsTypeOf(PlantUML::LiteralString)) return allTypes->getType('String');
+		case (self.oclIsTypeOf(PlantUML::LiteralReal)) return allTypes->getType('Real');
+		case (self.oclIsTypeOf(PlantUML::LiteralUnlimitedNatural)) return allTypes->getType('UnlimitedNatural');
+		
+		else return null;
+	}
+}

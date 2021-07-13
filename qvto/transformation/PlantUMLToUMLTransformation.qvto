@@ -1,11 +1,21 @@
 modeltype UML uses "http://www.eclipse.org/uml2/5.0.0/UML";
 modeltype PlantUML uses "http://www.mdd.elite/plantuml/PlantUML";
+modeltype Primitives uses "http://www.eclipse.org/uml2/5.0.0/Types";
 
 modeltype ECore uses "http://www.eclipse.org/emf/2002/Ecore";
 
-transformation PlantUMLToUMLTransformation(in source: PlantUML, out target: UML);
+transformation PlantUMLToUMLTransformation(in source: PlantUML, in primitives: Primitives, out target: UML);
+
+property allTypes : Set(PrimitiveType);
+
+query Set(PrimitiveType)::getType(name : String): PrimitiveType {
+	return self->any(p : PrimitiveType | p.name = name);
+}
 
 main() {
+	// Set Primitive Types
+	allTypes := primitives.rootObjects()[Model]->any(true).ownedElement[PrimitiveType];
+	
 	// Create Parent Model
 	object UML::Model {
 		var diagrams = source.rootObjects()[Diagram];
@@ -193,6 +203,8 @@ mapping RequestMessageArgument::toParameter(): UML::Parameter {
 	} else {
 		name := self.name;
 	} endif;
+	
+	type := self.value.toType();
 }
 
 /**
@@ -264,6 +276,7 @@ MessageDefinition::senderAndReceiver {
 				name := 'returnParam' + returnParamCounter.toString();
 				returnParamCounter := returnParamCounter + 1;
 				direction := ParameterDirectionKind::_return;
+				type := self.message.value.toType();
 			}
 		} endif;
 	}
@@ -291,7 +304,17 @@ mapping ReplyMessageArgument::toParameter(): UML::Parameter {
 	name := 'outParam' + outParamCounter.toString();
 	outParamCounter := outParamCounter + 1;
 	direction := ParameterDirectionKind::_out;
+	type := self.value.toType();
 }
 
-
-
+query PlantUML::Value::toType(): UML::PrimitiveType {
+	switch {
+		case (self.oclIsTypeOf(PlantUML::LiteralBoolean)) return allTypes->getType('Boolean');
+		case (self.oclIsTypeOf(PlantUML::LiteralInteger)) return allTypes->getType('Integer');
+		case (self.oclIsTypeOf(PlantUML::LiteralString)) return allTypes->getType('String');
+		case (self.oclIsTypeOf(PlantUML::LiteralReal)) return allTypes->getType('Real');
+		case (self.oclIsTypeOf(PlantUML::LiteralUnlimitedNatural)) return allTypes->getType('UnlimitedNatural');
+		
+		else return null;
+	}
+}

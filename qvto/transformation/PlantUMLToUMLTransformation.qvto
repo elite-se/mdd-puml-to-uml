@@ -207,6 +207,16 @@ mapping RequestMessageArgument::toParameter(): UML::Parameter {
 	type := self.value.toType();
 }
 
+query ReplyMessageArgument::toArgument(): UML::LiteralSpecification {
+	var res := self.value.map toLiteralSpecification();
+	res.name :=
+		if (self.outParamName.oclIsUndefined())
+		then self.name
+		else self.outParamName
+		endif;
+	return res;
+}
+
 /**
 * Create Arguments (for Messages) from Arguments
 */
@@ -230,25 +240,30 @@ PlantUML::LiteralUnlimitedNatural::toLiteralSpecification
 
 mapping PlantUML::LiteralBoolean::toLiteralSpecification(): UML::LiteralBoolean {
 	value := self.value;
+	type := allTypes->getType('Boolean');
 }
 
 mapping PlantUML::LiteralInteger::toLiteralSpecification(): UML::LiteralInteger {
-	value := self.value
+	value := self.value;
+	type := allTypes->getType('Integer');
 }
 
 mapping PlantUML::LiteralNull::toLiteralSpecification(): UML::LiteralNull { }
 
 mapping PlantUML::LiteralString::toLiteralSpecification(): UML::LiteralString {
 	value := self.value;
+	type := allTypes->getType('String');
 }
 
 mapping PlantUML::LiteralReal::toLiteralSpecification(): UML::LiteralReal {
 	value := self.value;
+	type := allTypes->getType('Real');
 }
 
 mapping PlantUML::LiteralUnlimitedNatural::toLiteralSpecification(): UML::LiteralUnlimitedNatural {
 	// TODO: Check
 	value := -1;
+	type := allTypes->getType('UnlimitedNatural');
 }
 
 property returnParamCounter : Integer = 0;
@@ -263,6 +278,12 @@ MessageDefinition::senderAndReceiver {
 	receiveEvent.name := name + '_' + 'receive' + messageOccurenceSpecificationCounter.toString();
 	messageOccurenceSpecificationCounter := messageOccurenceSpecificationCounter + 1;
 	messageSort := MessageSort::reply;
+	argument += self.message.arguments->toArgument();
+	if (not self.message.value.oclIsUndefined()) {
+		var res := self.message.value.map toLiteralSpecification();
+		res.name := 'return';
+		argument += res;
+	} endif;
 	var operation : UML::Operation := self.getOperation(result.name);
 	// Only add out / return parameters to existing operations
 	// We don't want to create new operations in reply messages

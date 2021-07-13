@@ -230,25 +230,30 @@ PlantUML::LiteralUnlimitedNatural::toLiteralSpecification
 
 mapping PlantUML::LiteralBoolean::toLiteralSpecification(): UML::LiteralBoolean {
 	value := self.value;
+	type := allTypes->getType('Boolean');
 }
 
 mapping PlantUML::LiteralInteger::toLiteralSpecification(): UML::LiteralInteger {
-	value := self.value
+	value := self.value;
+	type := allTypes->getType('Integer');
 }
 
 mapping PlantUML::LiteralNull::toLiteralSpecification(): UML::LiteralNull { }
 
 mapping PlantUML::LiteralString::toLiteralSpecification(): UML::LiteralString {
 	value := self.value;
+	type := allTypes->getType('String');
 }
 
 mapping PlantUML::LiteralReal::toLiteralSpecification(): UML::LiteralReal {
 	value := self.value;
+	type := allTypes->getType('Real');
 }
 
 mapping PlantUML::LiteralUnlimitedNatural::toLiteralSpecification(): UML::LiteralUnlimitedNatural {
 	// TODO: Check
 	value := -1;
+	type := allTypes->getType('UnlimitedNatural');
 }
 
 property returnParamCounter : Integer = 0;

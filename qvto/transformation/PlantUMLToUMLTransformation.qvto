@@ -142,7 +142,7 @@ ReplyMessageDefinition::toUMLMessage { }
 */
 mapping MessageDefinition::senderAndReceiver(inout parentInteraction : UML::Interaction): UML::Message {
 	interaction := parentInteraction;
-	var sendOccurence := object MessageOccurrenceSpecification {name := result.name + '_' + 'send'; 
+	var sendOccurence := object MessageOccurrenceSpecification {
 		message := result;
 		covered := self.sender.resolveone(UML::Lifeline);
 		enclosingInteraction := parentInteraction;

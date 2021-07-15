@@ -100,7 +100,7 @@ mapping Diagram::toCollaboration(): UML::Collaboration {
 	};
 	classifierBehavior := interaction;
 	ownedBehavior := interaction;
-	interaction.lifeline := self.elements[ParticipantDefinition].participant -> map toLifeline(interaction);
+	interaction.lifeline += self.elements[ParticipantDefinition].participant -> map toLifeline(interaction);
 	interaction.message += self.elements[MessageDefinition] -> map toUMLMessage(interaction);
 }
 

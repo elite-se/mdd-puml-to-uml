@@ -10,5 +10,5 @@
     1. In (source): `platform:/resource/plantuml-to-uml/models/example.plantuml`
     1. In (primitives): `pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml`
     1. Out (target): `platform:/resource/plantuml-to-uml/models/example.uml`
-    [Run Configuration Image](../docs/run-configuration.png)
+    ![Run Configuration Image](../docs/qvto/run-configuration.png)
 1. Run the transformation

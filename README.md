@@ -14,8 +14,8 @@ The resulting UML Model can be used for a variety of scenarios like code generat
 
 ### Input
 
-![PlantUML Example](../docs/plantuml-example.png)
+![PlantUML Example](./docs/plantuml-example.png)
 
 ### Output
 
-![UML Example](../docs/uml-example.png)
+![UML Example](./docs/uml-example.png)

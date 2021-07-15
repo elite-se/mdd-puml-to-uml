@@ -2,19 +2,17 @@
 
 title Weather API
 
-actor " Bob : User " as bob
-participant "node0 : WWebserver" as node0
-participant ": WeatherAPI" as weatherapi
-participant " Alice : User " as Alice
+actor "bob : User" as bob
+participant "node0 : Webserver" as node0
+participant ": WeatherAPI"
+actor "alice : User"
 
 bob -> node0: getWeather(location='Augsburg')
-node0 -> weatherapi: getWeatherData(long=48.360455, lat=10.901283)
-node0 <<-- weatherapi: getWeatherData : 'sunny'
-bob <<-- node0: test = getWeather(out : 10) : 'sunny'
+node0 -> ": WeatherAPI" : getWeatherData(long=48.360455, lat=10.901283)
+node0 <<-- ": WeatherAPI" : getWeatherData(validFor: 2000) : 'sunny'
+bob <<-- node0: getWeather : 'sunny'
 
-Alice -> node0: getWeather(location='Munich')
-node0 -> weatherapi: getWeatherData(long=48.000000, lat=10.000000)
-node0 <<-- weatherapi: getWeatherData : 'rain'
-Alice <<-- node0: test = getWeather : 'rain'
+alice -> node0: getWeather(location='München')
+alice <<-- node0: getWeather : 'sunny'
 
 @enduml
